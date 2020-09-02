@@ -1,0 +1,1234 @@
+{
+  "imports": {
+    "class": "imports",
+    "GENUA-MIB": [
+      "genua",
+      "GenuaIndex"
+    ],
+    "SNMPv2-CONF": [
+      "MODULE-COMPLIANCE",
+      "NOTIFICATION-GROUP"
+    ],
+    "SNMPv2-SMI": [
+      "OBJECT-TYPE",
+      "NOTIFICATION-TYPE",
+      "Gauge32",
+      "Counter64",
+      "enterprises",
+      "Integer32",
+      "TimeTicks",
+      "Bits",
+      "MibIdentifier",
+      "Counter32",
+      "OBJECT-IDENTITY",
+      "Unsigned32",
+      "MODULE-IDENTITY",
+      "iso",
+      "IpAddress"
+    ],
+    "SNMPv2-TC": [
+      "DisplayString",
+      "TEXTUAL-CONVENTION"
+    ]
+  },
+  "genuaRendezvous": {
+    "name": "genuaRendezvous",
+    "oid": "1.3.6.1.4.1.3717.64",
+    "class": "moduleidentity",
+    "revisions": [
+      {
+        "revision": "2017-10-10 00:00",
+        "description": "Add GENUA-RENDEZVOUS-MIB."
+      }
+    ],
+    "lastupdated": "201710100000Z",
+    "organization": "genua",
+    "contactinfo": "support@genua.de",
+    "description": "The MIB for the genua Remote Maintenance (Rendezvous) System."
+  },
+  "Userstate": {
+    "name": "Userstate",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "offline": 0,
+          "online": 1
+        }
+      }
+    },
+    "status": "current",
+    "description": "The current status of the user"
+  },
+  "Fbzstate": {
+    "name": "Fbzstate",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "stopped": 0,
+          "started": 1
+        }
+      }
+    },
+    "status": "current",
+    "description": "The current status of an FBZ"
+  },
+  "TargetConnection": {
+    "name": "TargetConnection",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "closed": 0,
+          "established": 1
+        }
+      }
+    },
+    "status": "current",
+    "description": "The state of the target system connection"
+  },
+  "AccessProtocol": {
+    "name": "AccessProtocol",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "unspecified": 0,
+          "vnc": 1,
+          "rdp": 2,
+          "ssh": 3,
+          "s7": 4
+        }
+      }
+    },
+    "status": "current",
+    "description": "The protocol used for access"
+  },
+  "Recording": {
+    "name": "Recording",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "off": 0,
+          "on": 1,
+          "paused": 2
+        }
+      }
+    },
+    "status": "current",
+    "description": "Current recording mode"
+  },
+  "AccessMode": {
+    "name": "AccessMode",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "viewOnly": 0,
+          "fullAccess": 1
+        }
+      }
+    },
+    "status": "current",
+    "description": "Access mode of a user"
+  },
+  "RecordingState": {
+    "name": "RecordingState",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "unknown": 0,
+          "active": 1,
+          "complete": 2,
+          "converting": 3,
+          "videoAvailable": 4
+        }
+      }
+    },
+    "status": "current",
+    "description": "State of a recording"
+  },
+  "TransferState": {
+    "name": "TransferState",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "unknown": 0,
+          "active": 1,
+          "complete": 2,
+          "aborted": 3
+        }
+      }
+    },
+    "status": "current",
+    "description": "State of a file transfer"
+  },
+  "TransferDirection": {
+    "name": "TransferDirection",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "upload": 1,
+          "download": 2
+        }
+      }
+    },
+    "status": "current",
+    "description": "Direction of a file transfer"
+  },
+  "ArchiveState": {
+    "name": "ArchiveState",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "notArchived": 0,
+          "archived": 1
+        }
+      }
+    },
+    "status": "current",
+    "description": "Archive state of a recording"
+  },
+  "StorageSpace": {
+    "name": "StorageSpace",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "low": 0,
+          "available": 1
+        }
+      }
+    },
+    "status": "current",
+    "description": "Status of free storage space"
+  },
+  "fuserTable": {
+    "name": "fuserTable",
+    "oid": "1.3.6.1.4.1.3717.64.1",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current",
+    "description": "List of all maintainers."
+  },
+  "fuserEntry": {
+    "name": "fuserEntry",
+    "oid": "1.3.6.1.4.1.3717.64.1.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-RENDEZVOUS-MIB",
+        "object": "fuserIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in fuserTable"
+  },
+  "fuserIndex": {
+    "name": "fuserIndex",
+    "oid": "1.3.6.1.4.1.3717.64.1.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into fuserTable"
+  },
+  "fuserId": {
+    "name": "fuserId",
+    "oid": "1.3.6.1.4.1.3717.64.1.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The user's ID."
+  },
+  "fuserName": {
+    "name": "fuserName",
+    "oid": "1.3.6.1.4.1.3717.64.1.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The login name."
+  },
+  "fuserRealname": {
+    "name": "fuserRealname",
+    "oid": "1.3.6.1.4.1.3717.64.1.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The person's real name."
+  },
+  "fuserEmail": {
+    "name": "fuserEmail",
+    "oid": "1.3.6.1.4.1.3717.64.1.1.5",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The person's e-mail address."
+  },
+  "fuserPhone": {
+    "name": "fuserPhone",
+    "oid": "1.3.6.1.4.1.3717.64.1.1.6",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The person's phone number."
+  },
+  "fuserCompany": {
+    "name": "fuserCompany",
+    "oid": "1.3.6.1.4.1.3717.64.1.1.7",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The company employing this person."
+  },
+  "fuserDescription": {
+    "name": "fuserDescription",
+    "oid": "1.3.6.1.4.1.3717.64.1.1.8",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Free text description of this person."
+  },
+  "fuserState": {
+    "name": "fuserState",
+    "oid": "1.3.6.1.4.1.3717.64.1.1.9",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Userstate",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Current state of this person."
+  },
+  "operatorTable": {
+    "name": "operatorTable",
+    "oid": "1.3.6.1.4.1.3717.64.2",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current",
+    "description": "List of all operators."
+  },
+  "operatorEntry": {
+    "name": "operatorEntry",
+    "oid": "1.3.6.1.4.1.3717.64.2.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-RENDEZVOUS-MIB",
+        "object": "operatorIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in operatorTable"
+  },
+  "operatorIndex": {
+    "name": "operatorIndex",
+    "oid": "1.3.6.1.4.1.3717.64.2.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into operatorTable"
+  },
+  "operatorId": {
+    "name": "operatorId",
+    "oid": "1.3.6.1.4.1.3717.64.2.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The user's ID."
+  },
+  "operatorName": {
+    "name": "operatorName",
+    "oid": "1.3.6.1.4.1.3717.64.2.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The login name."
+  },
+  "operatorRealname": {
+    "name": "operatorRealname",
+    "oid": "1.3.6.1.4.1.3717.64.2.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The person's real name."
+  },
+  "operatorEmail": {
+    "name": "operatorEmail",
+    "oid": "1.3.6.1.4.1.3717.64.2.1.5",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The person's e-mail address."
+  },
+  "operatorPhone": {
+    "name": "operatorPhone",
+    "oid": "1.3.6.1.4.1.3717.64.2.1.6",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The person's phone number."
+  },
+  "operatorCompany": {
+    "name": "operatorCompany",
+    "oid": "1.3.6.1.4.1.3717.64.2.1.7",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The company employing this person."
+  },
+  "operatorDescription": {
+    "name": "operatorDescription",
+    "oid": "1.3.6.1.4.1.3717.64.2.1.8",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Free text description of this person."
+  },
+  "operatorState": {
+    "name": "operatorState",
+    "oid": "1.3.6.1.4.1.3717.64.2.1.9",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Userstate",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Current state of this person."
+  },
+  "fbzsTable": {
+    "name": "fbzsTable",
+    "oid": "1.3.6.1.4.1.3717.64.3",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current",
+    "description": "List of FBZs."
+  },
+  "fbzsEntry": {
+    "name": "fbzsEntry",
+    "oid": "1.3.6.1.4.1.3717.64.3.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-RENDEZVOUS-MIB",
+        "object": "fbzsIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in fbzsTable"
+  },
+  "fbzsIndex": {
+    "name": "fbzsIndex",
+    "oid": "1.3.6.1.4.1.3717.64.3.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into fbzsTable"
+  },
+  "fbzsId": {
+    "name": "fbzsId",
+    "oid": "1.3.6.1.4.1.3717.64.3.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The ID of the FBZ."
+  },
+  "fbzsName": {
+    "name": "fbzsName",
+    "oid": "1.3.6.1.4.1.3717.64.3.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The name of the FBZ."
+  },
+  "fbzsDescription": {
+    "name": "fbzsDescription",
+    "oid": "1.3.6.1.4.1.3717.64.3.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Free text description of the FBZ."
+  },
+  "fbzsState": {
+    "name": "fbzsState",
+    "oid": "1.3.6.1.4.1.3717.64.3.1.5",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Fbzstate",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Current state of the FBZ."
+  },
+  "fbzsTimeleft": {
+    "name": "fbzsTimeleft",
+    "oid": "1.3.6.1.4.1.3717.64.3.1.6",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "TimeTicks",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Remaining runtime of the FBZ."
+  },
+  "targetsystemTable": {
+    "name": "targetsystemTable",
+    "oid": "1.3.6.1.4.1.3717.64.4",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current",
+    "description": "List of maintenance systems of the FBZ."
+  },
+  "targetsystemEntry": {
+    "name": "targetsystemEntry",
+    "oid": "1.3.6.1.4.1.3717.64.4.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-RENDEZVOUS-MIB",
+        "object": "fbzsIndex"
+      },
+      {
+        "module": "GENUA-RENDEZVOUS-MIB",
+        "object": "targetsystemIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in targetsystemTable"
+  },
+  "targetsystemIndex": {
+    "name": "targetsystemIndex",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into targetsystemTable"
+  },
+  "targetsystemId": {
+    "name": "targetsystemId",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The ID of the maintenance system."
+  },
+  "targetsystemName": {
+    "name": "targetsystemName",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The name of the maintenance system."
+  },
+  "targetsystemDescription": {
+    "name": "targetsystemDescription",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Free text description of the maintenance system."
+  },
+  "targetsystemConnection": {
+    "name": "targetsystemConnection",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.5",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "TargetConnection",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "State of connection to maintenance system."
+  },
+  "targetsystemUserprotocol": {
+    "name": "targetsystemUserprotocol",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.6",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "AccessProtocol",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Network protocol used by the maintainer."
+  },
+  "targetsystemAddress": {
+    "name": "targetsystemAddress",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.7",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "IpAddress",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Network address of maintenance system."
+  },
+  "targetsystemPort": {
+    "name": "targetsystemPort",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.8",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Network port for the maintenance system."
+  },
+  "targetsystemProtocol": {
+    "name": "targetsystemProtocol",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.9",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "AccessProtocol",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Network protocol used to access maintenance system."
+  },
+  "targetsystemRecording": {
+    "name": "targetsystemRecording",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.10",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Recording",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Current recording mode."
+  },
+  "targetsystemShare": {
+    "name": "targetsystemShare",
+    "oid": "1.3.6.1.4.1.3717.64.4.1.11",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Name of active shared drive."
+  },
+  "accessTable": {
+    "name": "accessTable",
+    "oid": "1.3.6.1.4.1.3717.64.5",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current",
+    "description": "List of access modes of maintenaners to target systems."
+  },
+  "accessEntry": {
+    "name": "accessEntry",
+    "oid": "1.3.6.1.4.1.3717.64.5.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-RENDEZVOUS-MIB",
+        "object": "fbzsIndex"
+      },
+      {
+        "module": "GENUA-RENDEZVOUS-MIB",
+        "object": "targetsystemIndex"
+      },
+      {
+        "module": "GENUA-RENDEZVOUS-MIB",
+        "object": "accessIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in accessTable"
+  },
+  "accessIndex": {
+    "name": "accessIndex",
+    "oid": "1.3.6.1.4.1.3717.64.5.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into accessTable"
+  },
+  "accessTargetsystemid": {
+    "name": "accessTargetsystemid",
+    "oid": "1.3.6.1.4.1.3717.64.5.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The ID of the maintenance system."
+  },
+  "accessTargetsystem": {
+    "name": "accessTargetsystem",
+    "oid": "1.3.6.1.4.1.3717.64.5.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The name of the maintenance system."
+  },
+  "accessFuserid": {
+    "name": "accessFuserid",
+    "oid": "1.3.6.1.4.1.3717.64.5.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The ID of the maintainer."
+  },
+  "accessFuser": {
+    "name": "accessFuser",
+    "oid": "1.3.6.1.4.1.3717.64.5.1.5",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The name of the maintainer."
+  },
+  "accessMode": {
+    "name": "accessMode",
+    "oid": "1.3.6.1.4.1.3717.64.5.1.6",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "AccessMode",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The access mode granted to the user."
+  },
+  "recordingsTable": {
+    "name": "recordingsTable",
+    "oid": "1.3.6.1.4.1.3717.64.6",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current",
+    "description": "List of existing recordings."
+  },
+  "recordingsEntry": {
+    "name": "recordingsEntry",
+    "oid": "1.3.6.1.4.1.3717.64.6.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-RENDEZVOUS-MIB",
+        "object": "recordingsIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in recordingsTable"
+  },
+  "recordingsIndex": {
+    "name": "recordingsIndex",
+    "oid": "1.3.6.1.4.1.3717.64.6.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into recordingsTable"
+  },
+  "recordingsId": {
+    "name": "recordingsId",
+    "oid": "1.3.6.1.4.1.3717.64.6.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The unique identifier of the recording."
+  },
+  "recordingsFbz": {
+    "name": "recordingsFbz",
+    "oid": "1.3.6.1.4.1.3717.64.6.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The name of the FBZ that created the recording."
+  },
+  "recordingsTargetsystem": {
+    "name": "recordingsTargetsystem",
+    "oid": "1.3.6.1.4.1.3717.64.6.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The name of the target system that was recorded."
+  },
+  "recordingsState": {
+    "name": "recordingsState",
+    "oid": "1.3.6.1.4.1.3717.64.6.1.5",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "RecordingState",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The state of the recording."
+  },
+  "recordingsStart": {
+    "name": "recordingsStart",
+    "oid": "1.3.6.1.4.1.3717.64.6.1.6",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The start date of the recording."
+  },
+  "recordingsDuration": {
+    "name": "recordingsDuration",
+    "oid": "1.3.6.1.4.1.3717.64.6.1.7",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "TimeTicks",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Duration of the recording."
+  },
+  "recordingsSize": {
+    "name": "recordingsSize",
+    "oid": "1.3.6.1.4.1.3717.64.6.1.8",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Size of the recording after video conversion."
+  },
+  "recordingsArchivestate": {
+    "name": "recordingsArchivestate",
+    "oid": "1.3.6.1.4.1.3717.64.6.1.9",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "ArchiveState",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Has the recording been archived?"
+  },
+  "fileTransfersTable": {
+    "name": "fileTransfersTable",
+    "oid": "1.3.6.1.4.1.3717.64.7",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current",
+    "description": "List of recorded file transfers."
+  },
+  "fileTransfersEntry": {
+    "name": "fileTransfersEntry",
+    "oid": "1.3.6.1.4.1.3717.64.7.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-RENDEZVOUS-MIB",
+        "object": "fileTransfersIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in fileTransfersTable"
+  },
+  "fileTransfersIndex": {
+    "name": "fileTransfersIndex",
+    "oid": "1.3.6.1.4.1.3717.64.7.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into fileTransfersTable"
+  },
+  "fileTransfersId": {
+    "name": "fileTransfersId",
+    "oid": "1.3.6.1.4.1.3717.64.7.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The unique identifier of the file transfer."
+  },
+  "fileTransfersFbz": {
+    "name": "fileTransfersFbz",
+    "oid": "1.3.6.1.4.1.3717.64.7.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The name of the FBZ that performed the transfer."
+  },
+  "fileTransfersTargetsystem": {
+    "name": "fileTransfersTargetsystem",
+    "oid": "1.3.6.1.4.1.3717.64.7.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The name of the target system used for transfer."
+  },
+  "fileTransfersState": {
+    "name": "fileTransfersState",
+    "oid": "1.3.6.1.4.1.3717.64.7.1.5",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "TransferState",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The state of the file transfer."
+  },
+  "fileTransfersDirection": {
+    "name": "fileTransfersDirection",
+    "oid": "1.3.6.1.4.1.3717.64.7.1.6",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "TransferDirection",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The direction of the file transfer."
+  },
+  "fileTransfersDate": {
+    "name": "fileTransfersDate",
+    "oid": "1.3.6.1.4.1.3717.64.7.1.7",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The date when the file transfer happened."
+  },
+  "fileTransfersSize": {
+    "name": "fileTransfersSize",
+    "oid": "1.3.6.1.4.1.3717.64.7.1.8",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Amount of the transferred data."
+  },
+  "fileTransfersArchivestate": {
+    "name": "fileTransfersArchivestate",
+    "oid": "1.3.6.1.4.1.3717.64.7.1.9",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "ArchiveState",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Has the file transfer been archived?"
+  },
+  "storage": {
+    "name": "storage",
+    "oid": "1.3.6.1.4.1.3717.64.8",
+    "class": "objectidentity"
+  },
+  "storageTotalblocks": {
+    "name": "storageTotalblocks",
+    "oid": "1.3.6.1.4.1.3717.64.8.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Total number of available blocks."
+  },
+  "storagePercentused": {
+    "name": "storagePercentused",
+    "oid": "1.3.6.1.4.1.3717.64.8.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Percent of storage currently used."
+  },
+  "storageFreespace": {
+    "name": "storageFreespace",
+    "oid": "1.3.6.1.4.1.3717.64.8.3",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "StorageSpace",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Status of free storage space."
+  },
+  "meta": {
+    "comments": [
+      "ASN.1 source file:///home/worker/workspaces/sopra-team-22/mib/orig/GENUA-RENDEZVOUS-MIB.txt",
+      "Produced by pysmi-0.3.2 at Sat Dec 29 16:03:23 2018",
+      "On host workerhost.local platform Linux version 4.19.10-300.fc29.x86_64 by user worker",
+      "Using Python version 3.7.1 (default, Nov 23 2018, 10:01:49) "
+    ],
+    "module": "GENUA-RENDEZVOUS-MIB"
+  }
+}

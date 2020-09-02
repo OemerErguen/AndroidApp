@@ -1,0 +1,41 @@
+{
+  "imports": {
+    "class": "imports",
+    "SNMPv2-CONF": [
+      "MODULE-COMPLIANCE",
+      "NOTIFICATION-GROUP"
+    ],
+    "SNMPv2-SMI": [
+      "OBJECT-TYPE",
+      "NOTIFICATION-TYPE",
+      "Gauge32",
+      "Counter64",
+      "iso",
+      "Bits",
+      "Integer32",
+      "TimeTicks",
+      "MibIdentifier",
+      "NotificationName",
+      "Counter32",
+      "OBJECT-IDENTITY",
+      "MODULE-IDENTITY",
+      "ObjectSyntax",
+      "Unsigned32",
+      "IpAddress",
+      "ObjectName"
+    ],
+    "SNMPv2-TC": [
+      "DisplayString",
+      "TEXTUAL-CONVENTION"
+    ]
+  },
+  "meta": {
+    "comments": [
+      "ASN.1 source file:///home/worker/workspaces/sopra-team-22/mib/orig/SNMPv2-CONF.txt",
+      "Produced by pysmi-0.3.2 at Sat Dec 29 16:03:23 2018",
+      "On host workerhost.local platform Linux version 4.19.10-300.fc29.x86_64 by user worker",
+      "Using Python version 3.7.1 (default, Nov 23 2018, 10:01:49) "
+    ],
+    "module": "SNMPv2-CONF"
+  }
+}

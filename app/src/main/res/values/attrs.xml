@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TableView">
+        <attr name="showHeader" format="boolean" />
+        <attr name="table_type" format="enum">
+            <enum name="interfaces" value="0"/>
+            <enum name="at" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_add_query"
+        android:icon="@drawable/ic_plus_outline_white"
+        android:title="@string/add_custom_query_menu_label"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_manage_tags"
+        android:title="@string/menu_hardware_tags_label"
+        app:showAsAction="never"/>
+</menu>

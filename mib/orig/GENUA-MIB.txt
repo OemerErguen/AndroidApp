@@ -1,0 +1,906 @@
+GENUA-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+        MODULE-IDENTITY, NOTIFICATION-TYPE, OBJECT-TYPE, Integer32, enterprises
+                FROM SNMPv2-SMI
+
+        TEXTUAL-CONVENTION
+                FROM SNMPv2-TC;
+
+genua MODULE-IDENTITY
+  LAST-UPDATED "201407160000Z"
+  ORGANIZATION "genua"
+  CONTACT-INFO "support@genua.de"
+  DESCRIPTION "Add Smartcard/keyserver, VPN summary."
+  REVISION "201407160000Z"
+  DESCRIPTION "The base MIB module for genua products."
+  REVISION "201203010000Z"
+  DESCRIPTION "Simplify interface state"
+  REVISION "201202020000Z"
+  DESCRIPTION "Add products and os.info"
+  REVISION "201105100000Z"
+  DESCRIPTION "More corrections"
+  REVISION "200901290000Z"
+  DESCRIPTION "Traps, misc"
+  REVISION "200901080000Z"
+  DESCRIPTION "Corrections"
+  ::= { enterprises 3717 }
+
+-- commonly used types
+  State ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "The current status"
+	SYNTAX INTEGER { notok(0), ok(1), unknown(2) }
+
+  Ifstate ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "The current interface/tunnel state"
+	SYNTAX INTEGER { unknown(0), down(1), up(2) }
+
+  Carpstatus ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "The current status of a CARP interface"
+	SYNTAX INTEGER {init(0), backup(1), master(2)}
+
+  Reachabilitystatus ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "The current reachability status"
+	SYNTAX INTEGER {unreachable(0), reachable(1)}
+
+  Iftype ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "Type of an interface"
+        SYNTAX INTEGER { phys(1), gif(2), pppoe(3), vlan(4), carp(6), unknown(7), trunk(8), modem(9), gre(10), mpls(11) }
+
+  GenuaIndex ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "Indices in ASN.1"
+	SYNTAX Integer32 (1..2147483647)
+
+-- define MIB objects
+
+legacy OBJECT IDENTIFIER ::= { genua 1 }
+
+modules OBJECT IDENTIFIER ::= { genua 128 }
+
+os OBJECT IDENTIFIER ::= { genua 2 }
+
+sensor OBJECT IDENTIFIER ::= { os 1 }
+
+system OBJECT IDENTIFIER ::= { sensor 1 }
+
+FanEntry ::= SEQUENCE {
+	fanIndex GenuaIndex,
+	fanName OCTET STRING,
+	fanRpm Integer32,
+	fanStatus State
+	}
+
+fanTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF FanEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "list of all fans inside the appliance."
+	::= { system 1 }
+
+fanEntry   OBJECT-TYPE
+	SYNTAX      FanEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in fanTable"
+	INDEX { fanIndex }
+	::= { fanTable 1 }
+
+fanIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into fanTable"
+	::= { fanEntry 1 }
+
+fanName   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Gives the name of the fan selected."
+	::= { fanEntry 2 }
+
+fanRpm   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "the current Rotations Per Minute (RPM) value of the sensor."
+	::= { fanEntry 3 }
+
+fanStatus   OBJECT-TYPE
+	SYNTAX      State
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Interpretation of the fans current RPM."
+	::= { fanEntry 4 }
+
+RaidEntry ::= SEQUENCE {
+	raidIndex GenuaIndex,
+	raidName OCTET STRING,
+	raidStatus State
+	}
+
+raidTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF RaidEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "all raid sensors."
+	::= { system 2 }
+
+raidEntry   OBJECT-TYPE
+	SYNTAX      RaidEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in raidTable"
+	INDEX { raidIndex }
+	::= { raidTable 1 }
+
+raidIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into raidTable"
+	::= { raidEntry 1 }
+
+raidName   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "the name of the current raid / disk combination."
+	::= { raidEntry 2 }
+
+raidStatus   OBJECT-TYPE
+	SYNTAX      State
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "the status of the current raid / disk combination."
+	::= { raidEntry 3 }
+
+files OBJECT IDENTIFIER ::= { system 3 }
+
+filesMax   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "maximum amount of open files (limit)."
+	::= { files 1 }
+
+filesUsed   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "number of currently opened files."
+	::= { files 2 }
+
+filesStatus   OBJECT-TYPE
+	SYNTAX      State
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "interpretation of used/max percentage."
+	::= { files 3 }
+
+swap OBJECT IDENTIFIER ::= { system 4 }
+
+swapMax   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "maximum amount of available swap space."
+	::= { swap 1 }
+
+swapUsed   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "currently used swap space."
+	::= { swap 2 }
+
+swapStatus   OBJECT-TYPE
+	SYNTAX      State
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "interpretation of use/max percentage."
+	::= { swap 3 }
+
+DiskpartitionEntry ::= SEQUENCE {
+	diskpartitionIndex GenuaIndex,
+	diskpartitionName OCTET STRING,
+	diskpartitionSpace OBJECT IDENTIFIER,
+	diskpartitionInodes OBJECT IDENTIFIER
+	}
+
+diskpartitionTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF DiskpartitionEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION ""
+	::= { system 5 }
+
+diskpartitionEntry   OBJECT-TYPE
+	SYNTAX      DiskpartitionEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in diskpartitionTable"
+	INDEX { diskpartitionIndex }
+	::= { diskpartitionTable 1 }
+
+diskpartitionIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into diskpartitionTable"
+	::= { diskpartitionEntry 1 }
+
+diskpartitionName   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "name of the current disk"
+	::= { diskpartitionEntry 2 }
+
+diskpartitionSpace OBJECT IDENTIFIER ::= { diskpartitionEntry 3 }
+
+diskpartitionSpaceMax   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "maximum recommended percentage of disk space allocation for current partition."
+	::= { diskpartitionSpace 1 }
+
+diskpartitionSpaceUsed   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "currently allocated disk space for current partition in percent."
+	::= { diskpartitionSpace 2 }
+
+diskpartitionSpaceStatus   OBJECT-TYPE
+	SYNTAX      State
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "interpretation of used/maximum value for current partition."
+	::= { diskpartitionSpace 3 }
+
+diskpartitionInodes OBJECT IDENTIFIER ::= { diskpartitionEntry 4 }
+
+diskpartitionInodesMax   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "maximum recommended percentage of inodes for current partition."
+	::= { diskpartitionInodes 1 }
+
+diskpartitionInodesUsed   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "amount of inodes used on current partition in ercent."
+	::= { diskpartitionInodes 2 }
+
+diskpartitionInodesStatus   OBJECT-TYPE
+	SYNTAX      State
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "interpretation of the used/maximum value for inodes."
+	::= { diskpartitionInodes 3 }
+
+pfstate OBJECT IDENTIFIER ::= { system 6 }
+
+pfstateMax   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "maximum number of states pf will track."
+	::= { pfstate 1 }
+
+pfstateUsed   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "amount of states currently in use."
+	::= { pfstate 2 }
+
+pfstateStatus   OBJECT-TYPE
+	SYNTAX      State
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "interpretation of current pfstate status."
+	::= { pfstate 3 }
+
+smartcard OBJECT IDENTIFIER ::= { system 7 }
+
+smartcardStatus   OBJECT-TYPE
+	SYNTAX      State
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "interpretation of current smartcard state"
+	::= { smartcard 1 }
+
+vpnsum OBJECT IDENTIFIER ::= { system 8 }
+
+vpnsumExpected   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "expected number of vpn tunnels."
+	::= { vpnsum 1 }
+
+vpnsumUp   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "actual number of vpn tunnels."
+	::= { vpnsum 2 }
+
+InterfaceEntry ::= SEQUENCE {
+	interfaceIndex GenuaIndex,
+	interfaceType Iftype,
+	interfaceName OCTET STRING,
+	interfaceLinkstate Ifstate,
+	interfaceIerrors OBJECT IDENTIFIER,
+	interfaceOerrors OBJECT IDENTIFIER,
+	interfaceCarpstatus Carpstatus
+	}
+
+interfaceTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF InterfaceEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION ""
+	::= { sensor 2 }
+
+interfaceEntry   OBJECT-TYPE
+	SYNTAX      InterfaceEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in interfaceTable"
+	INDEX { interfaceIndex }
+	::= { interfaceTable 1 }
+
+interfaceIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into interfaceTable"
+	::= { interfaceEntry 1 }
+
+interfaceType   OBJECT-TYPE
+	SYNTAX      Iftype
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "type of interface, like physical, pppoe, virtual lan, ..."
+	::= { interfaceEntry 3 }
+
+interfaceName   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "interface name (like lo0)."
+	::= { interfaceEntry 2 }
+
+interfaceLinkstate   OBJECT-TYPE
+	SYNTAX      Ifstate
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "linkstate of the interface (up/down/full-duplex/half-duplex)"
+	::= { interfaceEntry 4 }
+
+interfaceIerrors OBJECT IDENTIFIER ::= { interfaceEntry 5 }
+
+interfaceIerrorsNumber   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "number of input errors occured on current interface."
+	::= { interfaceIerrors 1 }
+
+interfaceIerrorsStatus   OBJECT-TYPE
+	SYNTAX      State
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "interpretation of the input interface errors."
+	::= { interfaceIerrors 2 }
+
+interfaceOerrors OBJECT IDENTIFIER ::= { interfaceEntry 6 }
+
+interfaceOerrorsNumber   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "number of output errors occurred on current interface."
+	::= { interfaceOerrors 1 }
+
+interfaceOerrorsStatus   OBJECT-TYPE
+	SYNTAX      State
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "interpretation of the output interface errors."
+	::= { interfaceOerrors 2 }
+
+interfaceCarpstatus   OBJECT-TYPE
+	SYNTAX      Carpstatus
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "if the interface is carp master or slave (optional)."
+	::= { interfaceEntry 7 }
+
+VpnEntry ::= SEQUENCE {
+	vpnIndex GenuaIndex,
+	vpnPeer OCTET STRING,
+	vpnPeerip OCTET STRING,
+	vpnLocal OCTET STRING,
+	vpnRemote OCTET STRING,
+	vpnStatus Ifstate
+	}
+
+vpnTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF VpnEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION ""
+	::= { sensor 3 }
+
+vpnEntry   OBJECT-TYPE
+	SYNTAX      VpnEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in vpnTable"
+	INDEX { vpnIndex }
+	::= { vpnTable 1 }
+
+vpnIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into vpnTable"
+	::= { vpnEntry 1 }
+
+vpnPeer   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "the peer name for the vpn."
+	::= { vpnEntry 2 }
+
+vpnPeerip   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "the ip of the remote peer."
+	::= { vpnEntry 3 }
+
+vpnLocal   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "the local subnet specified in this line."
+	::= { vpnEntry 4 }
+
+vpnRemote   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "the remote subnet specified in this line."
+	::= { vpnEntry 5 }
+
+vpnStatus   OBJECT-TYPE
+	SYNTAX      Ifstate
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "vpn status (up or down)."
+	::= { vpnEntry 6 }
+
+PingEntry ::= SEQUENCE {
+	pingIndex GenuaIndex,
+	pingName OCTET STRING,
+	pingIp OCTET STRING,
+	pingStatus Reachabilitystatus
+	}
+
+pingTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF PingEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION ""
+	::= { sensor 4 }
+
+pingEntry   OBJECT-TYPE
+	SYNTAX      PingEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in pingTable"
+	INDEX { pingIndex }
+	::= { pingTable 1 }
+
+pingIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into pingTable"
+	::= { pingEntry 1 }
+
+pingName   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "name of the ping test."
+	::= { pingEntry 2 }
+
+pingIp   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "(remote) ip the ping test is targeting."
+	::= { pingEntry 3 }
+
+pingStatus   OBJECT-TYPE
+	SYNTAX      Reachabilitystatus
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "status of the remote host (reachable/unreachable)."
+	::= { pingEntry 4 }
+
+misc OBJECT IDENTIFIER ::= { os 2 }
+
+miscSeverity   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The severity of an event"
+	::= { misc 1 }
+
+miscId   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The event id"
+	::= { misc 2 }
+
+miscMessage   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "A message"
+	::= { misc 3 }
+
+info OBJECT IDENTIFIER ::= { os 3 }
+
+infoProduct   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The product name"
+	::= { info 1 }
+
+infoSoftwareversion   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The software version"
+	::= { info 2 }
+
+infoRelease   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The software release"
+	::= { info 3 }
+
+infoPatchlevel   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The software patchlevel"
+	::= { info 4 }
+
+infoHardwareversion   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The hardware version and revision"
+	::= { info 5 }
+
+infoSerialnumber   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The serial number"
+	::= { info 6 }
+
+infoLicense   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The license key"
+	::= { info 7 }
+
+infoOperating   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The operating key"
+	::= { info 8 }
+
+private OBJECT IDENTIFIER ::= { os 5 }
+
+traps OBJECT IDENTIFIER ::= { genua 3 }
+
+
+-- Traps
+
+raidTraps OBJECT IDENTIFIER ::= { traps 6000 }
+
+raidOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , raidIndex, raidName, raidStatus }
+	STATUS  current
+	DESCRIPTION
+		"One or more disks in a RAID that were not OK are Ok now"
+            
+    ::= { raidTraps 1 }
+
+raidNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , raidIndex, raidName, raidStatus }
+	STATUS  current
+	DESCRIPTION
+		"One or more disks in a RAID are not OK"
+            
+    ::= { raidTraps 2 }
+
+fansTraps OBJECT IDENTIFIER ::= { traps 6001 }
+
+fansOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , fanIndex, fanName, fanRpm, fanStatus }
+	STATUS  current
+	DESCRIPTION
+		"One or more fans are running again"
+            
+    ::= { fansTraps 1 }
+
+fansNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , fanIndex, fanName, fanRpm, fanStatus }
+	STATUS  current
+	DESCRIPTION
+		"One or more fans are defunct"
+            
+    ::= { fansTraps 2 }
+
+swapTraps OBJECT IDENTIFIER ::= { traps 6002 }
+
+swapOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , swapMax, swapStatus, swapUsed }
+	STATUS  current
+	DESCRIPTION
+		"Swap space usage reduced to less than 90%"
+            
+    ::= { swapTraps 1 }
+
+swapNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , swapMax, swapStatus, swapUsed }
+	STATUS  current
+	DESCRIPTION
+		"More than 90% of swap space is used"
+            
+    ::= { swapTraps 2 }
+
+ifstateTraps OBJECT IDENTIFIER ::= { traps 6005 }
+
+ifstateOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , interfaceCarpstatus, interfaceIerrorsNumber, interfaceIerrorsStatus, interfaceIndex, interfaceLinkstate, interfaceName, interfaceOerrorsNumber, interfaceOerrorsStatus, interfaceType }
+	STATUS  current
+	DESCRIPTION
+		"The interface is up again"
+            
+    ::= { ifstateTraps 1 }
+
+ifstateNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , interfaceCarpstatus, interfaceIerrorsNumber, interfaceIerrorsStatus, interfaceIndex, interfaceLinkstate, interfaceName, interfaceOerrorsNumber, interfaceOerrorsStatus, interfaceType }
+	STATUS  current
+	DESCRIPTION
+		"The interface is down"
+            
+    ::= { ifstateTraps 2 }
+
+pingTraps OBJECT IDENTIFIER ::= { traps 6006 }
+
+pingOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , pingIndex, pingIp, pingName, pingStatus }
+	STATUS  current
+	DESCRIPTION
+		"A ping test for a configured ip succeeded after a fail"
+            
+    ::= { pingTraps 1 }
+
+pingNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , pingIndex, pingIp, pingName, pingStatus }
+	STATUS  current
+	DESCRIPTION
+		"A ping test for a configured ip failed"
+            
+    ::= { pingTraps 2 }
+
+filesTraps OBJECT IDENTIFIER ::= { traps 6007 }
+
+filesOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , filesMax, filesStatus, filesUsed }
+	STATUS  current
+	DESCRIPTION
+		"The number of files on the system is back to less than 90% of the maximum"
+            
+    ::= { filesTraps 1 }
+
+filesNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , filesMax, filesStatus, filesUsed }
+	STATUS  current
+	DESCRIPTION
+		"The maximum number of files on the system is used up to 90%"
+            
+    ::= { filesTraps 2 }
+
+diskpartitionInodesTraps OBJECT IDENTIFIER ::= { traps 6008 }
+
+diskpartitionInodesOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , diskpartitionIndex, diskpartitionInodesMax, diskpartitionInodesStatus, diskpartitionInodesUsed, diskpartitionName, diskpartitionSpaceMax, diskpartitionSpaceStatus, diskpartitionSpaceUsed }
+	STATUS  current
+	DESCRIPTION
+		"The usage of inodes on a disk partition is below 90% again"
+            
+    ::= { diskpartitionInodesTraps 1 }
+
+diskpartitionInodesNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , diskpartitionIndex, diskpartitionInodesMax, diskpartitionInodesStatus, diskpartitionInodesUsed, diskpartitionName, diskpartitionSpaceMax, diskpartitionSpaceStatus, diskpartitionSpaceUsed }
+	STATUS  current
+	DESCRIPTION
+		"The inodes on a disk partition are used up to more than 90%"
+            
+    ::= { diskpartitionInodesTraps 2 }
+
+diskpartitionSpaceTraps OBJECT IDENTIFIER ::= { traps 6009 }
+
+diskpartitionSpaceOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , diskpartitionIndex, diskpartitionInodesMax, diskpartitionInodesStatus, diskpartitionInodesUsed, diskpartitionName, diskpartitionSpaceMax, diskpartitionSpaceStatus, diskpartitionSpaceUsed }
+	STATUS  current
+	DESCRIPTION
+		"The usage of space on a disk partition is below 90% again"
+            
+    ::= { diskpartitionSpaceTraps 1 }
+
+diskpartitionSpaceNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , diskpartitionIndex, diskpartitionInodesMax, diskpartitionInodesStatus, diskpartitionInodesUsed, diskpartitionName, diskpartitionSpaceMax, diskpartitionSpaceStatus, diskpartitionSpaceUsed }
+	STATUS  current
+	DESCRIPTION
+		"The space on a disk partition is used up to more than 90%"
+            
+    ::= { diskpartitionSpaceTraps 2 }
+
+pfstatesTraps OBJECT IDENTIFIER ::= { traps 6010 }
+
+pfstatesOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , pfstateMax, pfstateStatus, pfstateUsed }
+	STATUS  current
+	DESCRIPTION
+		"Usage of filter states is below 90% again"
+            
+    ::= { pfstatesTraps 1 }
+
+pfstatesNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , pfstateMax, pfstateStatus, pfstateUsed }
+	STATUS  current
+	DESCRIPTION
+		"More than 90% of possible filter states are used"
+            
+    ::= { pfstatesTraps 2 }
+
+ierrorsTraps OBJECT IDENTIFIER ::= { traps 6011 }
+
+ierrorsOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , interfaceCarpstatus, interfaceIerrorsNumber, interfaceIerrorsStatus, interfaceIndex, interfaceLinkstate, interfaceName, interfaceOerrorsNumber, interfaceOerrorsStatus, interfaceType }
+	STATUS  current
+	DESCRIPTION
+		"Less than 100 input errors on an interface in the last five minutes which had more than 100 errors before"
+            
+    ::= { ierrorsTraps 1 }
+
+ierrorsNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , interfaceCarpstatus, interfaceIerrorsNumber, interfaceIerrorsStatus, interfaceIndex, interfaceLinkstate, interfaceName, interfaceOerrorsNumber, interfaceOerrorsStatus, interfaceType }
+	STATUS  current
+	DESCRIPTION
+		"More than 100 input errors on an interface occured in the last five minutes"
+            
+    ::= { ierrorsTraps 2 }
+
+oerrorsTraps OBJECT IDENTIFIER ::= { traps 6012 }
+
+oerrorsOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , interfaceCarpstatus, interfaceIerrorsNumber, interfaceIerrorsStatus, interfaceIndex, interfaceLinkstate, interfaceName, interfaceOerrorsNumber, interfaceOerrorsStatus, interfaceType }
+	STATUS  current
+	DESCRIPTION
+		"Less than 100 output errors on an interface in the last five minutes which had more than 100 errors before"
+            
+    ::= { oerrorsTraps 1 }
+
+oerrorsNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , interfaceCarpstatus, interfaceIerrorsNumber, interfaceIerrorsStatus, interfaceIndex, interfaceLinkstate, interfaceName, interfaceOerrorsNumber, interfaceOerrorsStatus, interfaceType }
+	STATUS  current
+	DESCRIPTION
+		"More than 100 output errors on an interface occured in the last five minutes"
+            
+    ::= { oerrorsTraps 2 }
+
+vpnTraps OBJECT IDENTIFIER ::= { traps 6013 }
+
+vpnOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , vpnIndex, vpnLocal, vpnPeer, vpnPeerip, vpnRemote, vpnStatus }
+	STATUS  current
+	DESCRIPTION
+		"All configured VPN connection are up"
+            
+    ::= { vpnTraps 1 }
+
+vpnNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , vpnIndex, vpnLocal, vpnPeer, vpnPeerip, vpnRemote, vpnStatus }
+	STATUS  current
+	DESCRIPTION
+		"One or more VPN connections are down"
+            
+    ::= { vpnTraps 2 }
+
+randTraps OBJECT IDENTIFIER ::= { traps 6014 }
+
+randOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage  }
+	STATUS  current
+	DESCRIPTION
+		"Enough entropy for random number generator."
+            
+    ::= { randTraps 1 }
+
+randNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage  }
+	STATUS  current
+	DESCRIPTION
+		"Not enough entropy for random number generator."
+            
+    ::= { randTraps 2 }
+
+smartcardTraps OBJECT IDENTIFIER ::= { traps 6015 }
+
+smartcardOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , smartcardStatus }
+	STATUS  current
+	DESCRIPTION
+		"Smartcard/Keyserver check ok."
+            
+    ::= { smartcardTraps 1 }
+
+smartcardNotOkTrap NOTIFICATION-TYPE
+	OBJECTS { miscSeverity, miscId, miscMessage , smartcardStatus }
+	STATUS  current
+	DESCRIPTION
+		"Smartcard/Keyserver check failed."
+            
+    ::= { smartcardTraps 2 }
+
+products OBJECT IDENTIFIER ::= { genua 4 }
+
+genugate OBJECT IDENTIFIER ::= { products 1 }
+
+genubox OBJECT IDENTIFIER ::= { products 2 }
+
+genulink OBJECT IDENTIFIER ::= { products 3 }
+
+genuscreen OBJECT IDENTIFIER ::= { products 4 }
+
+genucrypt OBJECT IDENTIFIER ::= { products 5 }
+
+genucenter OBJECT IDENTIFIER ::= { products 6 }
+
+genucard OBJECT IDENTIFIER ::= { products 7 }
+
+genuwall OBJECT IDENTIFIER ::= { products 8 }
+
+END

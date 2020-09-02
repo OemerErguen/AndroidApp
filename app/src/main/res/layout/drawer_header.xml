@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/activity_horizontal_margin"
+    android:background="@drawable/shape_side_nav_bar"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:paddingBottom="0dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
+
+    <ImageView
+        android:layout_width="210dp"
+        android:contentDescription="@string/app_logo_content_description"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="65dp"
+        android:background="@drawable/lettering_genua"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/nav_header_network_information_label"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/colorPrimaryTextLight" />
+
+    <TableLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:stretchColumns="0,1">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/nav_header_ssid_textview"
+                android:layout_span="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/drawer_header_ssid_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/colorPrimaryTextLight" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/nav_header_ip_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_header_ip_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/colorPrimaryTextLight" />
+
+            <TextView
+                android:id="@+id/nav_header_subnet_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_header_subnet_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/colorPrimaryTextLight" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/nav_header_dns_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_header_dns_server"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/colorPrimaryTextLight" />
+
+            <TextView
+                android:id="@+id/nav_header_gateway_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_header_gateway_ip"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/colorPrimaryTextLight" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/nav_header_ipv6_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/drawer_header_ipv6_address_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/colorPrimaryTextLight"
+                android:layout_span="2"/>
+        </TableRow>
+
+    </TableLayout>
+
+
+
+</LinearLayout>

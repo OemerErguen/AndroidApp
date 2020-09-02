@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>de.uni_stuttgart.informatik.sopra.sopraapp</OriginalElement>
+  <nodes>
+    <node x="3189.0" y="872.0">de.uni_stuttgart.informatik.sopra.sopraapp.activity.TabbedDeviceActivity</node>
+    <node x="4647.0" y="5172.0">de.uni_stuttgart.informatik.sopra.sopraapp.network.NetworkChangeReceiver</node>
+    <node x="856.0" y="5454.0">de.uni_stuttgart.informatik.sopra.sopraapp.adapter</node>
+    <node x="1836.0" y="4530.0">de.uni_stuttgart.informatik.sopra.sopraapp.activity.AlertHelper</node>
+    <node x="0.0" y="3174.0">de.uni_stuttgart.informatik.sopra.sopraapp.CockpitStateManager</node>
+    <node x="1452.0" y="512.0">de.uni_stuttgart.informatik.sopra.sopraapp.CockpitMainActivity</node>
+    <node x="0.0" y="2037.0">de.uni_stuttgart.informatik.sopra.sopraapp.CockpitPreferenceManager</node>
+    <node x="2806.0" y="5172.0">de.uni_stuttgart.informatik.sopra.sopraapp.service.CockpitStateService</node>
+    <node x="465.0" y="5454.0">de.uni_stuttgart.informatik.sopra.sopraapp.persistence</node>
+    <node x="2144.0" y="3861.0">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceFragment</node>
+    <node x="3921.0" y="917.0">de.uni_stuttgart.informatik.sopra.sopraapp.activity.TagManagementActivity</node>
+    <node x="1586.0" y="5172.0">de.uni_stuttgart.informatik.sopra.sopraapp.activity.TagAlertHelper</node>
+    <node x="3273.0" y="5279.0">de.uni_stuttgart.informatik.sopra.sopraapp.tasks</node>
+    <node x="893.0" y="4315.5">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.HardwareQueryFragment</node>
+    <node x="0.0" y="5454.0">de.uni_stuttgart.informatik.sopra.sopraapp.activity.BlockedSettingsActivity</node>
+    <node x="3572.0" y="4315.5">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceDetailFragment</node>
+    <node x="2303.0" y="849.5">de.uni_stuttgart.informatik.sopra.sopraapp.activity.SNMPLoginActivity</node>
+    <node x="4465.0" y="4315.5">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.MonitorQueryFragment</node>
+    <node x="2896.0" y="4530.0">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.DeviceMonitorViewFragment</node>
+    <node x="2679.0" y="4315.5">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceCustomQueryFragment</node>
+    <node x="1786.0" y="4293.0">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.SnmpUsageQueryFragment</node>
+    <node x="720.0" y="917.0">de.uni_stuttgart.informatik.sopra.sopraapp.activity.SingleQueryResultActivity</node>
+    <node x="0.0" y="4530.0">de.uni_stuttgart.informatik.sopra.sopraapp.snmp.SnmpConnection</node>
+    <node x="3685.0" y="2037.0">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.OwnQueryFragment</node>
+    <node x="1040.0" y="4530.0">de.uni_stuttgart.informatik.sopra.sopraapp.snmp.ManagedDevice</node>
+    <node x="4129.0" y="5172.0">de.uni_stuttgart.informatik.sopra.sopraapp.activity.QrScannerActivityHelper</node>
+    <node x="752.0" y="2037.0">de.uni_stuttgart.informatik.sopra.sopraapp.network.WifiNetworkManager</node>
+    <node x="0.0" y="4293.0">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.SingleQueryResultActivityFragment</node>
+    <node x="918.0" y="5172.0">de.uni_stuttgart.informatik.sopra.sopraapp.snmp.model.QueryResponse</node>
+    <node x="0.0" y="0.0">de.uni_stuttgart.informatik.sopra.sopraapp.snmp.DeviceConfiguration</node>
+    <node x="0.0" y="5172.0">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.AboutFragment</node>
+    <node x="2276.0" y="5172.0">de.uni_stuttgart.informatik.sopra.sopraapp.network.WifiConnector</node>
+    <node x="2038.0" y="0.0">de.uni_stuttgart.informatik.sopra.sopraapp.activity.ProtectedActivity</node>
+    <node x="1507.0" y="2037.0">de.uni_stuttgart.informatik.sopra.sopraapp.snmp.SnmpManager</node>
+    <node x="3581.0" y="5172.0">de.uni_stuttgart.informatik.sopra.sopraapp.activity.SplashScreen</node>
+    <node x="2765.0" y="2037.0">de.uni_stuttgart.informatik.sopra.sopraapp.snmp.DeviceManager</node>
+    <node x="3814.0" y="4530.0">de.uni_stuttgart.informatik.sopra.sopraapp.fragment.QueryCatalogFragment</node>
+    <node x="3270.0" y="5172.0">de.uni_stuttgart.informatik.sopra.sopraapp.query</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.CockpitMainActivity" target="de.uni_stuttgart.informatik.sopra.sopraapp.activity.ProtectedActivity">
+      <point x="0.0" y="-501.0" />
+      <point x="1867.5" y="492.0" />
+      <point x="2456.8" y="492.0" />
+      <point x="-279.1999999999998" y="231.0" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceDetailFragment" target="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceFragment">
+      <point x="0.0" y="-73.5" />
+      <point x="4008.5" y="4263.0" />
+      <point x="2931.5" y="4263.0" />
+      <point x="262.5" y="186.0" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.tasks" target="de.uni_stuttgart.informatik.sopra.sopraapp.query">
+      <point x="0.0" y="-28.5" />
+      <point x="0.0" y="28.5" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.activity.TagManagementActivity" target="de.uni_stuttgart.informatik.sopra.sopraapp.activity.ProtectedActivity">
+      <point x="-2.2737367544323206E-13" y="-96.0" />
+      <point x="4277.0" y="482.0" />
+      <point x="3294.4" y="482.0" />
+      <point x="558.4000000000001" y="231.0" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.activity.TabbedDeviceActivity" target="de.uni_stuttgart.informatik.sopra.sopraapp.activity.ProtectedActivity">
+      <point x="0.0" y="-141.0" />
+      <point x="3545.0" y="492.0" />
+      <point x="3015.2000000000003" y="492.0" />
+      <point x="279.2000000000003" y="231.0" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.HardwareQueryFragment" target="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceFragment">
+      <point x="0.0" y="-73.5" />
+      <point x="1329.5" y="4263.0" />
+      <point x="2406.5" y="4263.0" />
+      <point x="-262.5" y="186.0" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceCustomQueryFragment" target="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceFragment">
+      <point x="0.0" y="-73.5" />
+      <point x="3115.5" y="4273.0" />
+      <point x="2756.5" y="4273.0" />
+      <point x="87.5" y="186.0" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.MonitorQueryFragment" target="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceFragment">
+      <point x="0.0" y="-73.5" />
+      <point x="4901.5" y="4253.0" />
+      <point x="3106.5" y="4253.0" />
+      <point x="437.5" y="186.0" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.activity.SNMPLoginActivity" target="de.uni_stuttgart.informatik.sopra.sopraapp.activity.ProtectedActivity">
+      <point x="0.0" y="-163.5" />
+      <point x="0.0" y="231.0" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.SnmpUsageQueryFragment" target="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceFragment">
+      <point x="0.0" y="-96.0" />
+      <point x="2222.5" y="4273.0" />
+      <point x="2581.5" y="4273.0" />
+      <point x="-87.5" y="186.0" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.SingleQueryResultActivityFragment" target="de.uni_stuttgart.informatik.sopra.sopraapp.fragment.tabs.DeviceFragment">
+      <point x="0.0" y="-96.0" />
+      <point x="436.5" y="4253.0" />
+      <point x="2231.5" y="4253.0" />
+      <point x="-437.5" y="186.0" />
+    </edge>
+    <edge source="de.uni_stuttgart.informatik.sopra.sopraapp.activity.SingleQueryResultActivity" target="de.uni_stuttgart.informatik.sopra.sopraapp.activity.ProtectedActivity">
+      <point x="0.0" y="-96.0" />
+      <point x="1076.0" y="482.0" />
+      <point x="2177.6" y="482.0" />
+      <point x="-558.4000000000001" y="231.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.40000000000000013" x="2664.4166666666633" y="3442.749999999999" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

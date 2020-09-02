@@ -1,0 +1,92 @@
+{
+  "imports": {
+    "class": "imports",
+    "BRIDGE-MIB": [
+      "dot1dBridge"
+    ],
+    "GENUA-MIB": [
+      "genua"
+    ],
+    "GENUA-RENDEZVOUS-MIB": [
+      "genuaRendezvous"
+    ],
+    "HOST-RESOURCES-MIB": [
+      "hostResourcesMibModule"
+    ],
+    "IANAifType-MIB": [
+      "ianaifType"
+    ],
+    "IF-MIB": [
+      "ifMIB"
+    ],
+    "INET-ADDRESS-MIB": [
+      "inetAddressMIB"
+    ],
+    "IP-FORWARD-MIB": [
+      "ipForward"
+    ],
+    "IP-MIB": [
+      "ipMIB"
+    ],
+    "OPENBSD-BASE-MIB": [
+      "openBSD"
+    ],
+    "OPENBSD-CARP-MIB": [
+      "carpMIBObjects"
+    ],
+    "OPENBSD-MEM-MIB": [
+      "memMIBObjects"
+    ],
+    "OPENBSD-PF-MIB": [
+      "pfMIBObjects"
+    ],
+    "OPENBSD-RELAYD-MIB": [
+      "relaydMIBObjects"
+    ],
+    "OPENBSD-SENSORS-MIB": [
+      "sensorsMIBObjects"
+    ],
+    "SNMP-USER-BASED-SM-MIB": [
+      "snmpUsmMIB"
+    ],
+    "SNMPv2-CONF": [
+      "MODULE-COMPLIANCE",
+      "NOTIFICATION-GROUP"
+    ],
+    "SNMPv2-MIB": [
+      "snmpMIB"
+    ],
+    "SNMPv2-SMI": [
+      "OBJECT-TYPE",
+      "NOTIFICATION-TYPE",
+      "Gauge32",
+      "Counter64",
+      "Bits",
+      "TimeTicks",
+      "Integer32",
+      "MibIdentifier",
+      "Counter32",
+      "OBJECT-IDENTITY",
+      "Unsigned32",
+      "MODULE-IDENTITY",
+      "iso",
+      "IpAddress"
+    ],
+    "SNMPv2-TC": [
+      "DisplayString",
+      "TEXTUAL-CONVENTION"
+    ],
+    "UCD-SNMP-MIB": [
+      "ucdavis"
+    ]
+  },
+  "meta": {
+    "comments": [
+      "ASN.1 source file:///home/worker/workspaces/sopra-team-22/mib/orig/GENUA-SNMPD-CONF.txt",
+      "Produced by pysmi-0.3.2 at Sat Dec 29 16:03:23 2018",
+      "On host workerhost.local platform Linux version 4.19.10-300.fc29.x86_64 by user worker",
+      "Using Python version 3.7.1 (default, Nov 23 2018, 10:01:49) "
+    ],
+    "module": "GENUA-SNMPD-CONF"
+  }
+}

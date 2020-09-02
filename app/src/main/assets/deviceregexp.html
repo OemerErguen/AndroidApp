@@ -1,0 +1,69 @@
+<h1 style="text-align: center;"><strong>Ger&auml;te QR-Code Guide</strong></h1>
+<h3><strong>Schema:</strong></h3>
+<hr />
+<h4>{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "user": "",<br />&nbsp;&nbsp;&nbsp; &nbsp; "pw": "",<br />&nbsp;&nbsp; &nbsp;&nbsp; "enc": "",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "naddr": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "IPv4": "",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "IPv6": ""<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br /> }</h4>
+<hr />
+<ul style="list-style-type: disc;">
+<li><strong>user:</strong></li>
+</ul>
+<ul style="list-style-type: circle;">
+<li>v1: Community</li>
+<li>v3: Benutzername</li>
+</ul>
+<ul>
+<li><strong>pw:</strong></li>
+</ul>
+<ul style="list-style-type: circle;">
+<li>v1: leer</li>
+<li>v3: Auth-Passwort</li>
+</ul>
+<ul>
+<li><strong>enc:</strong></li>
+</ul>
+<ul style="list-style-type: circle;">
+<li>v1: leer</li>
+<li>v3 einfach: Priv-Passwort</li>
+<li>v3 erweitert: Schema: SecurityLevel;AuthProtocol;PrivProtocol;Context;Password</li>
+</ul>
+<ul style="list-style-type: square;">
+<li><strong>SecurityLevel</strong>: int 0-2</li>
+<li>0: AUTH_PRIV</li>
+<li>1: AUTH_NO_PRIV</li>
+<li>2: NO_AUTH_NO_PRIV</li>
+</ul>
+<p>&nbsp;</p>
+<ul style="list-style-type: square;">
+<li><strong>AuthProtocol</strong>: int 0-5</li>
+<li>0: SHA-1</li>
+<li>1: MD5</li>
+<li>2: HMAC128SHA224</li>
+<li>3: HMAC192SHA256</li>
+<li>4: HMAC256SHA384</li>
+<li>5: HMAC384SHA512</li>
+</ul>
+<p>&nbsp;</p>
+<ul style="list-style-type: square;">
+<li><strong>PrivProtocol:</strong> int 0-4</li>
+<li>0: AES-128</li>
+<li>1: DES</li>
+<li>2: AES-192</li>
+<li>3: AES-256</li>
+<li>4: 3DES</li>
+</ul>
+<p>&nbsp;</p>
+<ul style="list-style-type: square;">
+<li><strong>Context</strong>: leer oder String</li>
+<li><strong>Password</strong>: Priv-Passwort</li>
+</ul>
+<p>&nbsp;</p>
+<ul style="list-style-type: disc;">
+<li><strong>naddr:</strong></li>
+</ul>
+<ul style="list-style-type: circle;">
+<li>v1 und v3:</li>
+</ul>
+<ul style="list-style-type: square;">
+<li><strong>IPv4</strong>: IPv4-Addresse eines SNMP-Daemons</li>
+<li><strong>Spezieller Port</strong>: mit ":&lt;Port&gt;" Addresse suffixen</li>
+<li><strong>IPv6</strong>: oder IPv6-Addresse</li>
+</ul>

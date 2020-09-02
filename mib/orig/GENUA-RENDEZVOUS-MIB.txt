@@ -1,0 +1,702 @@
+GENUA-RENDEZVOUS-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+        MODULE-IDENTITY, NOTIFICATION-TYPE, OBJECT-TYPE, Integer32, enterprises,
+        IpAddress, TimeTicks
+                FROM SNMPv2-SMI
+
+        TEXTUAL-CONVENTION
+                FROM SNMPv2-TC
+
+        genua, GenuaIndex
+		FROM GENUA-MIB;
+
+genuaRendezvous MODULE-IDENTITY
+  LAST-UPDATED	"201710100000Z"
+  ORGANIZATION	"genua"
+  CONTACT-INFO	"support@genua.de"
+  DESCRIPTION	"The MIB for the genua Remote Maintenance (Rendezvous) System."
+  REVISION	"201710100000Z"
+  DESCRIPTION	"Add GENUA-RENDEZVOUS-MIB."
+  ::= { genua 64 }
+
+-- commonly used types
+  Userstate ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "The current status of the user"
+	SYNTAX INTEGER { offline(0), online(1) }
+
+  Fbzstate ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "The current status of an FBZ"
+	SYNTAX INTEGER { stopped(0), started(1) }
+
+  TargetConnection ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "The state of the target system connection"
+	SYNTAX INTEGER { closed(0), established(1) }
+
+  AccessProtocol ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "The protocol used for access"
+	SYNTAX INTEGER { unspecified(0), vnc(1), rdp(2), ssh(3), s7(4) }
+
+  Recording ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "Current recording mode"
+	SYNTAX INTEGER { off(0), on(1), paused(2) }
+
+  AccessMode ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "Access mode of a user"
+	SYNTAX INTEGER { viewOnly(0), fullAccess(1) }
+
+  RecordingState ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "State of a recording"
+	SYNTAX INTEGER { unknown(0), active(1), complete(2), converting(3), videoAvailable(4) }
+
+  TransferState ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "State of a file transfer"
+	SYNTAX INTEGER { unknown(0), active(1), complete(2), aborted(3) }
+
+  TransferDirection ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "Direction of a file transfer"
+	SYNTAX INTEGER { upload(1), download(2) }
+
+  ArchiveState ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "Archive state of a recording"
+	SYNTAX INTEGER { notArchived(0), archived(1) }
+
+  StorageSpace ::= TEXTUAL-CONVENTION
+	STATUS current
+	DESCRIPTION "Status of free storage space"
+	SYNTAX INTEGER { low(0), available(1) }
+
+-- define MIB objects
+
+FuserEntry ::= SEQUENCE {
+	fuserIndex GenuaIndex,
+	fuserId OCTET STRING,
+	fuserName OCTET STRING,
+	fuserRealname OCTET STRING,
+	fuserEmail OCTET STRING,
+	fuserPhone OCTET STRING,
+	fuserCompany OCTET STRING,
+	fuserDescription OCTET STRING,
+	fuserState Userstate
+	}
+
+fuserTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF FuserEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "List of all maintainers."
+	::= { genuaRendezvous 1 }
+
+fuserEntry   OBJECT-TYPE
+	SYNTAX      FuserEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in fuserTable"
+	INDEX { fuserIndex }
+	::= { fuserTable 1 }
+
+fuserIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into fuserTable"
+	::= { fuserEntry 1 }
+
+fuserId   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The user's ID."
+	::= { fuserEntry 2 }
+
+fuserName   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The login name."
+	::= { fuserEntry 3 }
+
+fuserRealname   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The person's real name."
+	::= { fuserEntry 4 }
+
+fuserEmail   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The person's e-mail address."
+	::= { fuserEntry 5 }
+
+fuserPhone   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The person's phone number."
+	::= { fuserEntry 6 }
+
+fuserCompany   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The company employing this person."
+	::= { fuserEntry 7 }
+
+fuserDescription   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Free text description of this person."
+	::= { fuserEntry 8 }
+
+fuserState   OBJECT-TYPE
+	SYNTAX      Userstate
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Current state of this person."
+	::= { fuserEntry 9 }
+
+OperatorEntry ::= SEQUENCE {
+	operatorIndex GenuaIndex,
+	operatorId OCTET STRING,
+	operatorName OCTET STRING,
+	operatorRealname OCTET STRING,
+	operatorEmail OCTET STRING,
+	operatorPhone OCTET STRING,
+	operatorCompany OCTET STRING,
+	operatorDescription OCTET STRING,
+	operatorState Userstate
+	}
+
+operatorTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF OperatorEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "List of all operators."
+	::= { genuaRendezvous 2 }
+
+operatorEntry   OBJECT-TYPE
+	SYNTAX      OperatorEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in operatorTable"
+	INDEX { operatorIndex }
+	::= { operatorTable 1 }
+
+operatorIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into operatorTable"
+	::= { operatorEntry 1 }
+
+operatorId   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The user's ID."
+	::= { operatorEntry 2 }
+
+operatorName   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The login name."
+	::= { operatorEntry 3 }
+
+operatorRealname   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The person's real name."
+	::= { operatorEntry 4 }
+
+operatorEmail   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The person's e-mail address."
+	::= { operatorEntry 5 }
+
+operatorPhone   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The person's phone number."
+	::= { operatorEntry 6 }
+
+operatorCompany   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The company employing this person."
+	::= { operatorEntry 7 }
+
+operatorDescription   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Free text description of this person."
+	::= { operatorEntry 8 }
+
+operatorState   OBJECT-TYPE
+	SYNTAX      Userstate
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Current state of this person."
+	::= { operatorEntry 9 }
+
+FbzsEntry ::= SEQUENCE {
+	fbzsIndex GenuaIndex,
+	fbzsId OCTET STRING,
+	fbzsName OCTET STRING,
+	fbzsDescription OCTET STRING,
+	fbzsState Fbzstate,
+	fbzsTimeleft TimeTicks
+	}
+
+fbzsTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF FbzsEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "List of FBZs."
+	::= { genuaRendezvous 3 }
+
+fbzsEntry   OBJECT-TYPE
+	SYNTAX      FbzsEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in fbzsTable"
+	INDEX { fbzsIndex }
+	::= { fbzsTable 1 }
+
+fbzsIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into fbzsTable"
+	::= { fbzsEntry 1 }
+
+fbzsId   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The ID of the FBZ."
+	::= { fbzsEntry 2 }
+
+fbzsName   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The name of the FBZ."
+	::= { fbzsEntry 3 }
+
+fbzsDescription   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Free text description of the FBZ."
+	::= { fbzsEntry 4 }
+
+fbzsState   OBJECT-TYPE
+	SYNTAX      Fbzstate
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Current state of the FBZ."
+	::= { fbzsEntry 5 }
+
+fbzsTimeleft   OBJECT-TYPE
+	SYNTAX      TimeTicks
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Remaining runtime of the FBZ."
+	::= { fbzsEntry 6 }
+
+TargetsystemEntry ::= SEQUENCE {
+	targetsystemIndex GenuaIndex,
+	targetsystemId OCTET STRING,
+	targetsystemName OCTET STRING,
+	targetsystemDescription OCTET STRING,
+	targetsystemConnection TargetConnection,
+	targetsystemUserprotocol AccessProtocol,
+	targetsystemAddress IpAddress,
+	targetsystemPort Integer32,
+	targetsystemProtocol AccessProtocol,
+	targetsystemRecording Recording,
+	targetsystemShare OCTET STRING
+	}
+
+targetsystemTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF TargetsystemEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "List of maintenance systems of the FBZ."
+	::= { genuaRendezvous 4 }
+
+targetsystemEntry   OBJECT-TYPE
+	SYNTAX      TargetsystemEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in targetsystemTable"
+	INDEX { fbzsIndex, targetsystemIndex }
+	::= { targetsystemTable 1 }
+
+targetsystemIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into targetsystemTable"
+	::= { targetsystemEntry 1 }
+
+targetsystemId   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The ID of the maintenance system."
+	::= { targetsystemEntry 2 }
+
+targetsystemName   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The name of the maintenance system."
+	::= { targetsystemEntry 3 }
+
+targetsystemDescription   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Free text description of the maintenance system."
+	::= { targetsystemEntry 4 }
+
+targetsystemConnection   OBJECT-TYPE
+	SYNTAX      TargetConnection
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "State of connection to maintenance system."
+	::= { targetsystemEntry 5 }
+
+targetsystemUserprotocol   OBJECT-TYPE
+	SYNTAX      AccessProtocol
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Network protocol used by the maintainer."
+	::= { targetsystemEntry 6 }
+
+targetsystemAddress   OBJECT-TYPE
+	SYNTAX      IpAddress
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Network address of maintenance system."
+	::= { targetsystemEntry 7 }
+
+targetsystemPort   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Network port for the maintenance system."
+	::= { targetsystemEntry 8 }
+
+targetsystemProtocol   OBJECT-TYPE
+	SYNTAX      AccessProtocol
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Network protocol used to access maintenance system."
+	::= { targetsystemEntry 9 }
+
+targetsystemRecording   OBJECT-TYPE
+	SYNTAX      Recording
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Current recording mode."
+	::= { targetsystemEntry 10 }
+
+targetsystemShare   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Name of active shared drive."
+	::= { targetsystemEntry 11 }
+
+AccessEntry ::= SEQUENCE {
+	accessIndex GenuaIndex,
+	accessTargetsystemid OCTET STRING,
+	accessTargetsystem OCTET STRING,
+	accessFuserid OCTET STRING,
+	accessFuser OCTET STRING,
+	accessMode AccessMode
+	}
+
+accessTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF AccessEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "List of access modes of maintenaners to target systems."
+	::= { genuaRendezvous 5 }
+
+accessEntry   OBJECT-TYPE
+	SYNTAX      AccessEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in accessTable"
+	INDEX { fbzsIndex, targetsystemIndex, accessIndex }
+	::= { accessTable 1 }
+
+accessIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into accessTable"
+	::= { accessEntry 1 }
+
+accessTargetsystemid   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The ID of the maintenance system."
+	::= { accessEntry 2 }
+
+accessTargetsystem   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The name of the maintenance system."
+	::= { accessEntry 3 }
+
+accessFuserid   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The ID of the maintainer."
+	::= { accessEntry 4 }
+
+accessFuser   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The name of the maintainer."
+	::= { accessEntry 5 }
+
+accessMode   OBJECT-TYPE
+	SYNTAX      AccessMode
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The access mode granted to the user."
+	::= { accessEntry 6 }
+
+RecordingsEntry ::= SEQUENCE {
+	recordingsIndex GenuaIndex,
+	recordingsId OCTET STRING,
+	recordingsFbz OCTET STRING,
+	recordingsTargetsystem OCTET STRING,
+	recordingsState RecordingState,
+	recordingsStart OCTET STRING,
+	recordingsDuration TimeTicks,
+	recordingsSize OCTET STRING,
+	recordingsArchivestate ArchiveState
+	}
+
+recordingsTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF RecordingsEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "List of existing recordings."
+	::= { genuaRendezvous 6 }
+
+recordingsEntry   OBJECT-TYPE
+	SYNTAX      RecordingsEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in recordingsTable"
+	INDEX { recordingsIndex }
+	::= { recordingsTable 1 }
+
+recordingsIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into recordingsTable"
+	::= { recordingsEntry 1 }
+
+recordingsId   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The unique identifier of the recording."
+	::= { recordingsEntry 2 }
+
+recordingsFbz   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The name of the FBZ that created the recording."
+	::= { recordingsEntry 3 }
+
+recordingsTargetsystem   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The name of the target system that was recorded."
+	::= { recordingsEntry 4 }
+
+recordingsState   OBJECT-TYPE
+	SYNTAX      RecordingState
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The state of the recording."
+	::= { recordingsEntry 5 }
+
+recordingsStart   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The start date of the recording."
+	::= { recordingsEntry 6 }
+
+recordingsDuration   OBJECT-TYPE
+	SYNTAX      TimeTicks
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Duration of the recording."
+	::= { recordingsEntry 7 }
+
+recordingsSize   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Size of the recording after video conversion."
+	::= { recordingsEntry 8 }
+
+recordingsArchivestate   OBJECT-TYPE
+	SYNTAX      ArchiveState
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Has the recording been archived?"
+	::= { recordingsEntry 9 }
+
+FiletransfersEntry ::= SEQUENCE {
+	fileTransfersIndex GenuaIndex,
+	fileTransfersId OCTET STRING,
+	fileTransfersFbz OCTET STRING,
+	fileTransfersTargetsystem OCTET STRING,
+	fileTransfersState TransferState,
+	fileTransfersDirection TransferDirection,
+	fileTransfersDate OCTET STRING,
+	fileTransfersSize OCTET STRING,
+	fileTransfersArchivestate ArchiveState
+	}
+
+fileTransfersTable   OBJECT-TYPE
+	SYNTAX      SEQUENCE OF FiletransfersEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "List of recorded file transfers."
+	::= { genuaRendezvous 7 }
+
+fileTransfersEntry   OBJECT-TYPE
+	SYNTAX      FiletransfersEntry
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION "Entry in fileTransfersTable"
+	INDEX { fileTransfersIndex }
+	::= { fileTransfersTable 1 }
+
+fileTransfersIndex   OBJECT-TYPE
+	SYNTAX      GenuaIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Index into fileTransfersTable"
+	::= { fileTransfersEntry 1 }
+
+fileTransfersId   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The unique identifier of the file transfer."
+	::= { fileTransfersEntry 2 }
+
+fileTransfersFbz   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The name of the FBZ that performed the transfer."
+	::= { fileTransfersEntry 3 }
+
+fileTransfersTargetsystem   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The name of the target system used for transfer."
+	::= { fileTransfersEntry 4 }
+
+fileTransfersState   OBJECT-TYPE
+	SYNTAX      TransferState
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The state of the file transfer."
+	::= { fileTransfersEntry 5 }
+
+fileTransfersDirection   OBJECT-TYPE
+	SYNTAX      TransferDirection
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The direction of the file transfer."
+	::= { fileTransfersEntry 6 }
+
+fileTransfersDate   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "The date when the file transfer happened."
+	::= { fileTransfersEntry 7 }
+
+fileTransfersSize   OBJECT-TYPE
+	SYNTAX      OCTET STRING
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Amount of the transferred data."
+	::= { fileTransfersEntry 8 }
+
+fileTransfersArchivestate   OBJECT-TYPE
+	SYNTAX      ArchiveState
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Has the file transfer been archived?"
+	::= { fileTransfersEntry 9 }
+
+storage OBJECT IDENTIFIER ::= { genuaRendezvous 8 }
+
+storageTotalblocks   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Total number of available blocks."
+	::= { storage 1 }
+
+storagePercentused   OBJECT-TYPE
+	SYNTAX      Integer32
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Percent of storage currently used."
+	::= { storage 2 }
+
+storageFreespace   OBJECT-TYPE
+	SYNTAX      StorageSpace
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION "Status of free storage space."
+	::= { storage 3 }
+
+END

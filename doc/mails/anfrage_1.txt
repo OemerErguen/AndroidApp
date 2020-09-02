@@ -1,0 +1,30 @@
+Hallo,
+
+ich möchte fragen, ob es möglich ist, das offizielle Android X einzusetzen:
+
+"AndroidX is a major improvement to the original Android Support Library. Like the Support Library, AndroidX ships separately from the Android OS and provides backwards-compatibility across Android releases. AndroidX fully replaces the Support Library by providing feature parity and new libraries."
+
+https://developer.android.com/jetpack/androidx/
+
+Android Studio kann die (überschaubare) Projektmigration per Rechtsklick erledigen lassen und es ergeben sich im Projekt nur Namespace-Änderungen von:
+android.support.design.* -> androidx.*
+Dies betrifft also nur den import-Block jeder Klasse und ggfs. xml-Element-Deklarationen.
+
+Dadurch verändern sich jedoch die Bibliotheken in gradle.build wie im Anhang beschrieben.
+
+Die geänderten Testbibliotheken sind auch moderner.
+
+Die App bleibt vollständig mit SDK 27 kompatibel, der CI Build läuft auch und die Oberflächen folgen dem offiziellen Material Design Guideline.
+Apache License 2.0
+
+Können wir Android X im Sopra-Projekt einsetzen und die Bibliotheken, wie im Screenshot beschrieben, ändern?
+
+Können wir außerdem die Bibliothek 'androidx.cardview:cardview:1.0.0' bzw. (ohne Android X) 'com.android.support:cardview-v7:27.1.1' verwenden?
+
+Darüber hinaus ist bei uns die Frage aufgetaucht, wie wir diesen Abschnitt aus obigem Text zu verstehen haben und bitten um Erläuterung:
+"Wichtig ist bei der Verwendung von externen Diensten, dass diese nicht vorausgesetzt werden dürfen.
+D.h. erwartete Antworten/Daten sollten im SoPra eventuell als Fall-Back hartcodiert werden bzw. die App muß auch ohne Kontakt zu diesen Services funktionieren.
+Die grundsätzliche Vorbereitung der Architektur/Implementierung auf eine externe Lieferung der Daten ist vermutlich aber sinnvoll."
+
+Viele Grüße,
+Team 22

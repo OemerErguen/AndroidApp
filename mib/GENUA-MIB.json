@@ -1,0 +1,2417 @@
+{
+  "imports": {
+    "class": "imports",
+    "SNMPv2-CONF": [
+      "MODULE-COMPLIANCE",
+      "NOTIFICATION-GROUP"
+    ],
+    "SNMPv2-SMI": [
+      "OBJECT-TYPE",
+      "NOTIFICATION-TYPE",
+      "Gauge32",
+      "Counter64",
+      "enterprises",
+      "Integer32",
+      "Bits",
+      "TimeTicks",
+      "MibIdentifier",
+      "Counter32",
+      "OBJECT-IDENTITY",
+      "Unsigned32",
+      "MODULE-IDENTITY",
+      "iso",
+      "IpAddress"
+    ],
+    "SNMPv2-TC": [
+      "DisplayString",
+      "TEXTUAL-CONVENTION"
+    ]
+  },
+  "genua": {
+    "name": "genua",
+    "oid": "1.3.6.1.4.1.3717",
+    "class": "moduleidentity",
+    "revisions": [
+      {
+        "revision": "2014-07-16 00:00",
+        "description": "The base MIB module for genua products."
+      },
+      {
+        "revision": "2012-03-01 00:00",
+        "description": "Simplify interface state"
+      },
+      {
+        "revision": "2012-02-02 00:00",
+        "description": "Add products and os.info"
+      },
+      {
+        "revision": "2011-05-10 00:00",
+        "description": "More corrections"
+      },
+      {
+        "revision": "2009-01-29 00:00",
+        "description": "Traps, misc"
+      },
+      {
+        "revision": "2009-01-08 00:00",
+        "description": "Corrections"
+      }
+    ],
+    "lastupdated": "201407160000Z",
+    "organization": "genua",
+    "contactinfo": "support@genua.de",
+    "description": "Add Smartcard/keyserver, VPN summary."
+  },
+  "State": {
+    "name": "State",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "notok": 0,
+          "ok": 1,
+          "unknown": 2
+        }
+      }
+    },
+    "status": "current",
+    "description": "The current status"
+  },
+  "Ifstate": {
+    "name": "Ifstate",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "unknown": 0,
+          "down": 1,
+          "up": 2
+        }
+      }
+    },
+    "status": "current",
+    "description": "The current interface/tunnel state"
+  },
+  "Carpstatus": {
+    "name": "Carpstatus",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "init": 0,
+          "backup": 1,
+          "master": 2
+        }
+      }
+    },
+    "status": "current",
+    "description": "The current status of a CARP interface"
+  },
+  "Reachabilitystatus": {
+    "name": "Reachabilitystatus",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "unreachable": 0,
+          "reachable": 1
+        }
+      }
+    },
+    "status": "current",
+    "description": "The current reachability status"
+  },
+  "Iftype": {
+    "name": "Iftype",
+    "class": "textualconvention",
+    "type": {
+      "type": "INTEGER",
+      "class": "type",
+      "constraints": {
+        "enumeration": {
+          "phys": 1,
+          "gif": 2,
+          "pppoe": 3,
+          "vlan": 4,
+          "carp": 6,
+          "unknown": 7,
+          "trunk": 8,
+          "modem": 9,
+          "gre": 10,
+          "mpls": 11
+        }
+      }
+    },
+    "status": "current",
+    "description": "Type of an interface"
+  },
+  "GenuaIndex": {
+    "name": "GenuaIndex",
+    "class": "textualconvention",
+    "type": {
+      "type": "Integer32",
+      "class": "type",
+      "constraints": {
+        "range": [
+          {
+            "min": 1,
+            "max": 2147483647
+          }
+        ]
+      }
+    },
+    "status": "current",
+    "description": "Indices in ASN.1"
+  },
+  "legacy": {
+    "name": "legacy",
+    "oid": "1.3.6.1.4.1.3717.1",
+    "class": "objectidentity"
+  },
+  "modules": {
+    "name": "modules",
+    "oid": "1.3.6.1.4.1.3717.128",
+    "class": "objectidentity"
+  },
+  "os": {
+    "name": "os",
+    "oid": "1.3.6.1.4.1.3717.2",
+    "class": "objectidentity"
+  },
+  "sensor": {
+    "name": "sensor",
+    "oid": "1.3.6.1.4.1.3717.2.1",
+    "class": "objectidentity"
+  },
+  "system": {
+    "name": "system",
+    "oid": "1.3.6.1.4.1.3717.2.1.1",
+    "class": "objectidentity"
+  },
+  "fanTable": {
+    "name": "fanTable",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.1",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current",
+    "description": "list of all fans inside the appliance."
+  },
+  "fanEntry": {
+    "name": "fanEntry",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.1.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-MIB",
+        "object": "fanIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in fanTable"
+  },
+  "fanIndex": {
+    "name": "fanIndex",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.1.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into fanTable"
+  },
+  "fanName": {
+    "name": "fanName",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.1.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Gives the name of the fan selected."
+  },
+  "fanRpm": {
+    "name": "fanRpm",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.1.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "the current Rotations Per Minute (RPM) value of the sensor."
+  },
+  "fanStatus": {
+    "name": "fanStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.1.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "State",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Interpretation of the fans current RPM."
+  },
+  "raidTable": {
+    "name": "raidTable",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.2",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current",
+    "description": "all raid sensors."
+  },
+  "raidEntry": {
+    "name": "raidEntry",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.2.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-MIB",
+        "object": "raidIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in raidTable"
+  },
+  "raidIndex": {
+    "name": "raidIndex",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.2.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into raidTable"
+  },
+  "raidName": {
+    "name": "raidName",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.2.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "the name of the current raid / disk combination."
+  },
+  "raidStatus": {
+    "name": "raidStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.2.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "State",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "the status of the current raid / disk combination."
+  },
+  "files": {
+    "name": "files",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.3",
+    "class": "objectidentity"
+  },
+  "filesMax": {
+    "name": "filesMax",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.3.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "maximum amount of open files (limit)."
+  },
+  "filesUsed": {
+    "name": "filesUsed",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.3.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "number of currently opened files."
+  },
+  "filesStatus": {
+    "name": "filesStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.3.3",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "State",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "interpretation of used/max percentage."
+  },
+  "swap": {
+    "name": "swap",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.4",
+    "class": "objectidentity"
+  },
+  "swapMax": {
+    "name": "swapMax",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.4.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "maximum amount of available swap space."
+  },
+  "swapUsed": {
+    "name": "swapUsed",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.4.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "currently used swap space."
+  },
+  "swapStatus": {
+    "name": "swapStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.4.3",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "State",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "interpretation of use/max percentage."
+  },
+  "diskpartitionTable": {
+    "name": "diskpartitionTable",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current"
+  },
+  "diskpartitionEntry": {
+    "name": "diskpartitionEntry",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in diskpartitionTable"
+  },
+  "diskpartitionIndex": {
+    "name": "diskpartitionIndex",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into diskpartitionTable"
+  },
+  "diskpartitionName": {
+    "name": "diskpartitionName",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "name of the current disk"
+  },
+  "diskpartitionSpace": {
+    "name": "diskpartitionSpace",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1.3",
+    "class": "objectidentity"
+  },
+  "diskpartitionSpaceMax": {
+    "name": "diskpartitionSpaceMax",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1.3.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "maximum recommended percentage of disk space allocation for current partition."
+  },
+  "diskpartitionSpaceUsed": {
+    "name": "diskpartitionSpaceUsed",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1.3.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "currently allocated disk space for current partition in percent."
+  },
+  "diskpartitionSpaceStatus": {
+    "name": "diskpartitionSpaceStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1.3.3",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "State",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "interpretation of used/maximum value for current partition."
+  },
+  "diskpartitionInodes": {
+    "name": "diskpartitionInodes",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1.4",
+    "class": "objectidentity"
+  },
+  "diskpartitionInodesMax": {
+    "name": "diskpartitionInodesMax",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1.4.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "maximum recommended percentage of inodes for current partition."
+  },
+  "diskpartitionInodesUsed": {
+    "name": "diskpartitionInodesUsed",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1.4.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "amount of inodes used on current partition in ercent."
+  },
+  "diskpartitionInodesStatus": {
+    "name": "diskpartitionInodesStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.5.1.4.3",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "State",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "interpretation of the used/maximum value for inodes."
+  },
+  "pfstate": {
+    "name": "pfstate",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.6",
+    "class": "objectidentity"
+  },
+  "pfstateMax": {
+    "name": "pfstateMax",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.6.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "maximum number of states pf will track."
+  },
+  "pfstateUsed": {
+    "name": "pfstateUsed",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.6.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "amount of states currently in use."
+  },
+  "pfstateStatus": {
+    "name": "pfstateStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.6.3",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "State",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "interpretation of current pfstate status."
+  },
+  "smartcard": {
+    "name": "smartcard",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.7",
+    "class": "objectidentity"
+  },
+  "smartcardStatus": {
+    "name": "smartcardStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.7.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "State",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "interpretation of current smartcard state"
+  },
+  "vpnsum": {
+    "name": "vpnsum",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.8",
+    "class": "objectidentity"
+  },
+  "vpnsumExpected": {
+    "name": "vpnsumExpected",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.8.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "expected number of vpn tunnels."
+  },
+  "vpnsumUp": {
+    "name": "vpnsumUp",
+    "oid": "1.3.6.1.4.1.3717.2.1.1.8.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "actual number of vpn tunnels."
+  },
+  "interfaceTable": {
+    "name": "interfaceTable",
+    "oid": "1.3.6.1.4.1.3717.2.1.2",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current"
+  },
+  "interfaceEntry": {
+    "name": "interfaceEntry",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in interfaceTable"
+  },
+  "interfaceIndex": {
+    "name": "interfaceIndex",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into interfaceTable"
+  },
+  "interfaceType": {
+    "name": "interfaceType",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Iftype",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "type of interface, like physical, pppoe, virtual lan, ..."
+  },
+  "interfaceName": {
+    "name": "interfaceName",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "interface name (like lo0)."
+  },
+  "interfaceLinkstate": {
+    "name": "interfaceLinkstate",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Ifstate",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "linkstate of the interface (up/down/full-duplex/half-duplex)"
+  },
+  "interfaceIerrors": {
+    "name": "interfaceIerrors",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.5",
+    "class": "objectidentity"
+  },
+  "interfaceIerrorsNumber": {
+    "name": "interfaceIerrorsNumber",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.5.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "number of input errors occured on current interface."
+  },
+  "interfaceIerrorsStatus": {
+    "name": "interfaceIerrorsStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.5.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "State",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "interpretation of the input interface errors."
+  },
+  "interfaceOerrors": {
+    "name": "interfaceOerrors",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.6",
+    "class": "objectidentity"
+  },
+  "interfaceOerrorsNumber": {
+    "name": "interfaceOerrorsNumber",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.6.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "number of output errors occurred on current interface."
+  },
+  "interfaceOerrorsStatus": {
+    "name": "interfaceOerrorsStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.6.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "State",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "interpretation of the output interface errors."
+  },
+  "interfaceCarpstatus": {
+    "name": "interfaceCarpstatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.2.1.7",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Carpstatus",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "if the interface is carp master or slave (optional)."
+  },
+  "vpnTable": {
+    "name": "vpnTable",
+    "oid": "1.3.6.1.4.1.3717.2.1.3",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current"
+  },
+  "vpnEntry": {
+    "name": "vpnEntry",
+    "oid": "1.3.6.1.4.1.3717.2.1.3.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in vpnTable"
+  },
+  "vpnIndex": {
+    "name": "vpnIndex",
+    "oid": "1.3.6.1.4.1.3717.2.1.3.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into vpnTable"
+  },
+  "vpnPeer": {
+    "name": "vpnPeer",
+    "oid": "1.3.6.1.4.1.3717.2.1.3.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "the peer name for the vpn."
+  },
+  "vpnPeerip": {
+    "name": "vpnPeerip",
+    "oid": "1.3.6.1.4.1.3717.2.1.3.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "the ip of the remote peer."
+  },
+  "vpnLocal": {
+    "name": "vpnLocal",
+    "oid": "1.3.6.1.4.1.3717.2.1.3.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "the local subnet specified in this line."
+  },
+  "vpnRemote": {
+    "name": "vpnRemote",
+    "oid": "1.3.6.1.4.1.3717.2.1.3.1.5",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "the remote subnet specified in this line."
+  },
+  "vpnStatus": {
+    "name": "vpnStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.3.1.6",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Ifstate",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "vpn status (up or down)."
+  },
+  "pingTable": {
+    "name": "pingTable",
+    "oid": "1.3.6.1.4.1.3717.2.1.4",
+    "nodetype": "table",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "status": "current"
+  },
+  "pingEntry": {
+    "name": "pingEntry",
+    "oid": "1.3.6.1.4.1.3717.2.1.4.1",
+    "nodetype": "row",
+    "class": "objecttype",
+    "maxaccess": "not-accessible",
+    "indices": [
+      {
+        "module": "GENUA-MIB",
+        "object": "pingIndex"
+      }
+    ],
+    "status": "current",
+    "description": "Entry in pingTable"
+  },
+  "pingIndex": {
+    "name": "pingIndex",
+    "oid": "1.3.6.1.4.1.3717.2.1.4.1.1",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "GenuaIndex",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "Index into pingTable"
+  },
+  "pingName": {
+    "name": "pingName",
+    "oid": "1.3.6.1.4.1.3717.2.1.4.1.2",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "name of the ping test."
+  },
+  "pingIp": {
+    "name": "pingIp",
+    "oid": "1.3.6.1.4.1.3717.2.1.4.1.3",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "(remote) ip the ping test is targeting."
+  },
+  "pingStatus": {
+    "name": "pingStatus",
+    "oid": "1.3.6.1.4.1.3717.2.1.4.1.4",
+    "nodetype": "column",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Reachabilitystatus",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "status of the remote host (reachable/unreachable)."
+  },
+  "misc": {
+    "name": "misc",
+    "oid": "1.3.6.1.4.1.3717.2.2",
+    "class": "objectidentity"
+  },
+  "miscSeverity": {
+    "name": "miscSeverity",
+    "oid": "1.3.6.1.4.1.3717.2.2.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The severity of an event"
+  },
+  "miscId": {
+    "name": "miscId",
+    "oid": "1.3.6.1.4.1.3717.2.2.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "Integer32",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The event id"
+  },
+  "miscMessage": {
+    "name": "miscMessage",
+    "oid": "1.3.6.1.4.1.3717.2.2.3",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "A message"
+  },
+  "info": {
+    "name": "info",
+    "oid": "1.3.6.1.4.1.3717.2.3",
+    "class": "objectidentity"
+  },
+  "infoProduct": {
+    "name": "infoProduct",
+    "oid": "1.3.6.1.4.1.3717.2.3.1",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The product name"
+  },
+  "infoSoftwareversion": {
+    "name": "infoSoftwareversion",
+    "oid": "1.3.6.1.4.1.3717.2.3.2",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The software version"
+  },
+  "infoRelease": {
+    "name": "infoRelease",
+    "oid": "1.3.6.1.4.1.3717.2.3.3",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The software release"
+  },
+  "infoPatchlevel": {
+    "name": "infoPatchlevel",
+    "oid": "1.3.6.1.4.1.3717.2.3.4",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The software patchlevel"
+  },
+  "infoHardwareversion": {
+    "name": "infoHardwareversion",
+    "oid": "1.3.6.1.4.1.3717.2.3.5",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The hardware version and revision"
+  },
+  "infoSerialnumber": {
+    "name": "infoSerialnumber",
+    "oid": "1.3.6.1.4.1.3717.2.3.6",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The serial number"
+  },
+  "infoLicense": {
+    "name": "infoLicense",
+    "oid": "1.3.6.1.4.1.3717.2.3.7",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The license key"
+  },
+  "infoOperating": {
+    "name": "infoOperating",
+    "oid": "1.3.6.1.4.1.3717.2.3.8",
+    "nodetype": "scalar",
+    "class": "objecttype",
+    "syntax": {
+      "type": "OCTET STRING",
+      "class": "type"
+    },
+    "maxaccess": "read-only",
+    "status": "current",
+    "description": "The operating key"
+  },
+  "private": {
+    "name": "private",
+    "oid": "1.3.6.1.4.1.3717.2.5",
+    "class": "objectidentity"
+  },
+  "traps": {
+    "name": "traps",
+    "oid": "1.3.6.1.4.1.3717.3",
+    "class": "objectidentity"
+  },
+  "raidTraps": {
+    "name": "raidTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6000",
+    "class": "objectidentity"
+  },
+  "raidOkTrap": {
+    "name": "raidOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6000.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "raidIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "raidName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "raidStatus"
+      }
+    ],
+    "status": "current",
+    "description": "One or more disks in a RAID that were not OK are Ok now"
+  },
+  "raidNotOkTrap": {
+    "name": "raidNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6000.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "raidIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "raidName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "raidStatus"
+      }
+    ],
+    "status": "current",
+    "description": "One or more disks in a RAID are not OK"
+  },
+  "fansTraps": {
+    "name": "fansTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6001",
+    "class": "objectidentity"
+  },
+  "fansOkTrap": {
+    "name": "fansOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6001.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "fanIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "fanName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "fanRpm"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "fanStatus"
+      }
+    ],
+    "status": "current",
+    "description": "One or more fans are running again"
+  },
+  "fansNotOkTrap": {
+    "name": "fansNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6001.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "fanIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "fanName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "fanRpm"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "fanStatus"
+      }
+    ],
+    "status": "current",
+    "description": "One or more fans are defunct"
+  },
+  "swapTraps": {
+    "name": "swapTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6002",
+    "class": "objectidentity"
+  },
+  "swapOkTrap": {
+    "name": "swapOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6002.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "swapMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "swapStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "swapUsed"
+      }
+    ],
+    "status": "current",
+    "description": "Swap space usage reduced to less than 90%"
+  },
+  "swapNotOkTrap": {
+    "name": "swapNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6002.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "swapMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "swapStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "swapUsed"
+      }
+    ],
+    "status": "current",
+    "description": "More than 90% of swap space is used"
+  },
+  "ifstateTraps": {
+    "name": "ifstateTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6005",
+    "class": "objectidentity"
+  },
+  "ifstateOkTrap": {
+    "name": "ifstateOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6005.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceCarpstatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceLinkstate"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceType"
+      }
+    ],
+    "status": "current",
+    "description": "The interface is up again"
+  },
+  "ifstateNotOkTrap": {
+    "name": "ifstateNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6005.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceCarpstatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceLinkstate"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceType"
+      }
+    ],
+    "status": "current",
+    "description": "The interface is down"
+  },
+  "pingTraps": {
+    "name": "pingTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6006",
+    "class": "objectidentity"
+  },
+  "pingOkTrap": {
+    "name": "pingOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6006.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pingIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pingIp"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pingName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pingStatus"
+      }
+    ],
+    "status": "current",
+    "description": "A ping test for a configured ip succeeded after a fail"
+  },
+  "pingNotOkTrap": {
+    "name": "pingNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6006.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pingIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pingIp"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pingName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pingStatus"
+      }
+    ],
+    "status": "current",
+    "description": "A ping test for a configured ip failed"
+  },
+  "filesTraps": {
+    "name": "filesTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6007",
+    "class": "objectidentity"
+  },
+  "filesOkTrap": {
+    "name": "filesOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6007.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "filesMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "filesStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "filesUsed"
+      }
+    ],
+    "status": "current",
+    "description": "The number of files on the system is back to less than 90% of the maximum"
+  },
+  "filesNotOkTrap": {
+    "name": "filesNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6007.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "filesMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "filesStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "filesUsed"
+      }
+    ],
+    "status": "current",
+    "description": "The maximum number of files on the system is used up to 90%"
+  },
+  "diskpartitionInodesTraps": {
+    "name": "diskpartitionInodesTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6008",
+    "class": "objectidentity"
+  },
+  "diskpartitionInodesOkTrap": {
+    "name": "diskpartitionInodesOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6008.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesUsed"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceUsed"
+      }
+    ],
+    "status": "current",
+    "description": "The usage of inodes on a disk partition is below 90% again"
+  },
+  "diskpartitionInodesNotOkTrap": {
+    "name": "diskpartitionInodesNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6008.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesUsed"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceUsed"
+      }
+    ],
+    "status": "current",
+    "description": "The inodes on a disk partition are used up to more than 90%"
+  },
+  "diskpartitionSpaceTraps": {
+    "name": "diskpartitionSpaceTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6009",
+    "class": "objectidentity"
+  },
+  "diskpartitionSpaceOkTrap": {
+    "name": "diskpartitionSpaceOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6009.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesUsed"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceUsed"
+      }
+    ],
+    "status": "current",
+    "description": "The usage of space on a disk partition is below 90% again"
+  },
+  "diskpartitionSpaceNotOkTrap": {
+    "name": "diskpartitionSpaceNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6009.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionInodesUsed"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "diskpartitionSpaceUsed"
+      }
+    ],
+    "status": "current",
+    "description": "The space on a disk partition is used up to more than 90%"
+  },
+  "pfstatesTraps": {
+    "name": "pfstatesTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6010",
+    "class": "objectidentity"
+  },
+  "pfstatesOkTrap": {
+    "name": "pfstatesOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6010.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pfstateMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pfstateStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pfstateUsed"
+      }
+    ],
+    "status": "current",
+    "description": "Usage of filter states is below 90% again"
+  },
+  "pfstatesNotOkTrap": {
+    "name": "pfstatesNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6010.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pfstateMax"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pfstateStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "pfstateUsed"
+      }
+    ],
+    "status": "current",
+    "description": "More than 90% of possible filter states are used"
+  },
+  "ierrorsTraps": {
+    "name": "ierrorsTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6011",
+    "class": "objectidentity"
+  },
+  "ierrorsOkTrap": {
+    "name": "ierrorsOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6011.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceCarpstatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceLinkstate"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceType"
+      }
+    ],
+    "status": "current",
+    "description": "Less than 100 input errors on an interface in the last five minutes which had more than 100 errors before"
+  },
+  "ierrorsNotOkTrap": {
+    "name": "ierrorsNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6011.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceCarpstatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceLinkstate"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceType"
+      }
+    ],
+    "status": "current",
+    "description": "More than 100 input errors on an interface occured in the last five minutes"
+  },
+  "oerrorsTraps": {
+    "name": "oerrorsTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6012",
+    "class": "objectidentity"
+  },
+  "oerrorsOkTrap": {
+    "name": "oerrorsOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6012.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceCarpstatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceLinkstate"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceType"
+      }
+    ],
+    "status": "current",
+    "description": "Less than 100 output errors on an interface in the last five minutes which had more than 100 errors before"
+  },
+  "oerrorsNotOkTrap": {
+    "name": "oerrorsNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6012.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceCarpstatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceLinkstate"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceName"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsNumber"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceOerrorsStatus"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "interfaceType"
+      }
+    ],
+    "status": "current",
+    "description": "More than 100 output errors on an interface occured in the last five minutes"
+  },
+  "vpnTraps": {
+    "name": "vpnTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6013",
+    "class": "objectidentity"
+  },
+  "vpnOkTrap": {
+    "name": "vpnOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6013.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnLocal"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnPeer"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnPeerip"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnRemote"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnStatus"
+      }
+    ],
+    "status": "current",
+    "description": "All configured VPN connection are up"
+  },
+  "vpnNotOkTrap": {
+    "name": "vpnNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6013.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnIndex"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnLocal"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnPeer"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnPeerip"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnRemote"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "vpnStatus"
+      }
+    ],
+    "status": "current",
+    "description": "One or more VPN connections are down"
+  },
+  "randTraps": {
+    "name": "randTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6014",
+    "class": "objectidentity"
+  },
+  "randOkTrap": {
+    "name": "randOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6014.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      }
+    ],
+    "status": "current",
+    "description": "Enough entropy for random number generator."
+  },
+  "randNotOkTrap": {
+    "name": "randNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6014.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      }
+    ],
+    "status": "current",
+    "description": "Not enough entropy for random number generator."
+  },
+  "smartcardTraps": {
+    "name": "smartcardTraps",
+    "oid": "1.3.6.1.4.1.3717.3.6015",
+    "class": "objectidentity"
+  },
+  "smartcardOkTrap": {
+    "name": "smartcardOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6015.1",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "smartcardStatus"
+      }
+    ],
+    "status": "current",
+    "description": "Smartcard/Keyserver check ok."
+  },
+  "smartcardNotOkTrap": {
+    "name": "smartcardNotOkTrap",
+    "oid": "1.3.6.1.4.1.3717.3.6015.2",
+    "class": "notificationtype",
+    "objects": [
+      {
+        "module": "GENUA-MIB",
+        "object": "miscSeverity"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscId"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "miscMessage"
+      },
+      {
+        "module": "GENUA-MIB",
+        "object": "smartcardStatus"
+      }
+    ],
+    "status": "current",
+    "description": "Smartcard/Keyserver check failed."
+  },
+  "products": {
+    "name": "products",
+    "oid": "1.3.6.1.4.1.3717.4",
+    "class": "objectidentity"
+  },
+  "genugate": {
+    "name": "genugate",
+    "oid": "1.3.6.1.4.1.3717.4.1",
+    "class": "objectidentity"
+  },
+  "genubox": {
+    "name": "genubox",
+    "oid": "1.3.6.1.4.1.3717.4.2",
+    "class": "objectidentity"
+  },
+  "genulink": {
+    "name": "genulink",
+    "oid": "1.3.6.1.4.1.3717.4.3",
+    "class": "objectidentity"
+  },
+  "genuscreen": {
+    "name": "genuscreen",
+    "oid": "1.3.6.1.4.1.3717.4.4",
+    "class": "objectidentity"
+  },
+  "genucrypt": {
+    "name": "genucrypt",
+    "oid": "1.3.6.1.4.1.3717.4.5",
+    "class": "objectidentity"
+  },
+  "genucenter": {
+    "name": "genucenter",
+    "oid": "1.3.6.1.4.1.3717.4.6",
+    "class": "objectidentity"
+  },
+  "genucard": {
+    "name": "genucard",
+    "oid": "1.3.6.1.4.1.3717.4.7",
+    "class": "objectidentity"
+  },
+  "genuwall": {
+    "name": "genuwall",
+    "oid": "1.3.6.1.4.1.3717.4.8",
+    "class": "objectidentity"
+  },
+  "meta": {
+    "comments": [
+      "ASN.1 source file:///home/worker/workspaces/sopra-team-22/mib/orig/GENUA-MIB.txt",
+      "Produced by pysmi-0.3.2 at Sat Dec 29 16:03:23 2018",
+      "On host workerhost.local platform Linux version 4.19.10-300.fc29.x86_64 by user worker",
+      "Using Python version 3.7.1 (default, Nov 23 2018, 10:01:49) "
+    ],
+    "module": "GENUA-MIB"
+  }
+}

@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+apply from: './jacoco.gradle'
+
+ext.androidSupportVersion = "27.1.1"
+// we need to use old mockito!
+ext.mockitoVersion = "2.22.0"
+ext.androidTestVersion = "1.0.2"
+ext.espressoVersion = "3.0.2"
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "de.uni_stuttgart.informatik.sopra.sopraapp"
+        minSdkVersion 23
+        targetSdkVersion 27
+        versionCode 21
+        versionName "0.6.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled true
+        }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError false
+    }
+    adbOptions {
+        timeOutInMs 15 * 60 * 1000 // 15 Minutes due to gitlab ci is slow
+    }
+    buildToolsVersion '28.0.3'
+}
+configurations {
+    compile.exclude group: 'log4j'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "SoPra"
+        property "sonar.projectKey", "de.uni_stuttgart.informatik.sopra.sopraapp"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/"
+    }
+}
+
+dependencies {
+    constraints {
+        implementation('org.snmp4j:org.snmp4j:2.6.3') {
+            because 'later would break android api compatibility with sdk 23'
+        }
+    }
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+    implementation "com.android.support:appcompat-v7:$androidSupportVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "com.android.support:design:$androidSupportVersion"
+    implementation "com.android.support:support-v4:$androidSupportVersion"
+    implementation "com.android.support:preference-v14:$androidSupportVersion"
+    implementation "com.android.support:recyclerview-v7:$androidSupportVersion"
+    implementation "com.android.support:cardview-v7:$androidSupportVersion"
+    // this needs to stay at version: 2.6.3
+    implementation 'org.snmp4j:snmp4j:2.6.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+    // tests
+    androidTestImplementation "com.android.support.test:runner:$androidTestVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+    androidTestImplementation "com.android.support.test:rules:$androidTestVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
+    androidTestImplementation "com.android.support:support-annotations:$androidSupportVersion"
+    testImplementation 'junit:junit:4.12'
+}

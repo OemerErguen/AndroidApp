@@ -1,0 +1,62 @@
+- umbruch head row gerätedetailsansicht
+
+- beim schnellen entfernene des Gerätes und neuem einfügen, wird angezeigt, dass das Gerät bereits vorhanden ist
+- nach einmaligem ignorieren der Fehlermeldung "Gerät bereits vorhanden", könnten wir das gleiche Gerät denn noch hinzufügen
+- Keine Tastenansicht beim öffnen des DeviceManager (Tastatur öffnet sich nur beim klicken des Textfeldes
+
+
+
+E/AndroidRuntime: FATAL EXCEPTION: main
+    Process: de.uni_stuttgart.informatik.sopra.sopraapp, PID: 18289
+    java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+        at java.util.ArrayList.get(ArrayList.java:437)
+        at java.util.Collections$SynchronizedList.get(Collections.java:2461)
+        at de.uni_stuttgart.informatik.sopra.sopraapp.adapter.DeviceMonitorViewRecyclerViewAdapter.onBindViewHolder(DeviceMonitorViewRecyclerViewAdapter.java:46)
+        at de.uni_stuttgart.informatik.sopra.sopraapp.adapter.DeviceMonitorViewRecyclerViewAdapter.onBindViewHolder(DeviceMonitorViewRecyclerViewAdapter.java:20)
+        at android.support.v7.widget.RecyclerView$Adapter.onBindViewHolder(RecyclerView.java:6673)
+        at android.support.v7.widget.RecyclerView$Adapter.bindViewHolder(RecyclerView.java:6714)
+        at android.support.v7.widget.RecyclerView$Recycler.tryBindViewHolderByDeadline(RecyclerView.java:5647)
+        at android.support.v7.widget.RecyclerView$Recycler.tryGetViewHolderForPositionByDeadline(RecyclerView.java:5913)
+        at android.support.v7.widget.RecyclerView$Recycler.getViewForPosition(RecyclerView.java:5752)
+        at android.support.v7.widget.RecyclerView$Recycler.getViewForPosition(RecyclerView.java:5748)
+        at android.support.v7.widget.LinearLayoutManager$LayoutState.next(LinearLayoutManager.java:2232)
+        at android.support.v7.widget.LinearLayoutManager.layoutChunk(LinearLayoutManager.java:1559)
+        at android.support.v7.widget.LinearLayoutManager.fill(LinearLayoutManager.java:1519)
+        at android.support.v7.widget.LinearLayoutManager.onLayoutChildren(LinearLayoutManager.java:614)
+        at android.support.v7.widget.RecyclerView.dispatchLayoutStep2(RecyclerView.java:3812)
+        at android.support.v7.widget.RecyclerView.dispatchLayout(RecyclerView.java:3529)
+        at android.support.v7.widget.RecyclerView.onLayout(RecyclerView.java:4082)
+        at android.view.View.layout(View.java:19728)
+        at android.view.ViewGroup.layout(ViewGroup.java:6149)
+        at android.support.constraint.ConstraintLayout.onLayout(ConstraintLayout.java:1915)
+        at android.view.View.layout(View.java:19728)
+        at android.view.ViewGroup.layout(ViewGroup.java:6149)
+        at android.support.design.widget.HeaderScrollingViewBehavior.layoutChild(HeaderScrollingViewBehavior.java:132)
+        at android.support.design.widget.ViewOffsetBehavior.onLayoutChild(ViewOffsetBehavior.java:42)
+        at android.support.design.widget.AppBarLayout$ScrollingViewBehavior.onLayoutChild(AppBarLayout.java:1361)
+        at android.support.design.widget.CoordinatorLayout.onLayout(CoordinatorLayout.java:894)
+        at android.view.View.layout(View.java:19728)
+        at android.view.ViewGroup.layout(ViewGroup.java:6149)
+        at android.support.v4.widget.DrawerLayout.onLayout(DrawerLayout.java:1171)
+        at android.view.View.layout(View.java:19728)
+        at android.view.ViewGroup.layout(ViewGroup.java:6149)
+        at android.widget.FrameLayout.layoutChildren(FrameLayout.java:323)
+        at android.widget.FrameLayout.onLayout(FrameLayout.java:261)
+        at android.view.View.layout(View.java:19728)
+        at android.view.ViewGroup.layout(ViewGroup.java:6149)
+        at android.widget.LinearLayout.setChildFrame(LinearLayout.java:1791)
+        at android.widget.LinearLayout.layoutVertical(LinearLayout.java:1635)
+        at android.widget.LinearLayout.onLayout(LinearLayout.java:1544)
+        at android.view.View.layout(View.java:19728)
+        at android.view.ViewGroup.layout(ViewGroup.java:6149)
+        at android.widget.FrameLayout.layoutChildren(FrameLayout.java:323)
+        at android.widget.FrameLayout.onLayout(FrameLayout.java:261)
+        at android.view.View.layout(View.java:19728)
+        at android.view.ViewGroup.layout(ViewGroup.java:6149)
+        at android.widget.LinearLayout.setChildFrame(LinearLayout.java:1791)
+        at android.widget.LinearLayout.layoutVertical(LinearLayout.java:1635)
+        at android.widget.LinearLayout.onLayout(LinearLayout.java:1544)
+        at android.view.View.layout(View.java:19728)
+        at android.view.ViewGroup.layout(ViewGroup.java:6149)
+        at android.widget.FrameLayout.layoutChildren(FrameLayout.java:323)
+        at android.widget.FrameLayout.onLayout(FrameLayout.java:261)
